@@ -1,0 +1,129 @@
+[gd_scene load_steps=11 format=3 uid="uid://ihx6h80qqdo8"]
+
+[ext_resource type="Script" path="res://scenes/Weapons/Sword/Sword.gd" id="1_badd0"]
+[ext_resource type="Texture2D" uid="uid://dl60knb5107bb" path="res://Assets/NinjaAdventure/Items/Weapons/Katana/Sprite.png" id="2_6i4vf"]
+[ext_resource type="AudioStream" uid="uid://bced2xk05187k" path="res://Assets/NinjaAdventure/Sounds/Game/Sword2.wav" id="3_htxb3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k8b80"]
+size = Vector2(5, 9)
+
+[sub_resource type="Animation" id="Animation_lh8xy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.60919]
+}
+
+[sub_resource type="Animation" id="Animation_vr05u"]
+resource_name = "attackDown"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.93382, 3.14159, 4.36332]
+}
+
+[sub_resource type="Animation" id="Animation_6mdmo"]
+resource_name = "attackLeft"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [3.40339, 4.71239, 6.02139]
+}
+
+[sub_resource type="Animation" id="Animation_7iced"]
+resource_name = "attackUp"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [4.97419, 6.28319, 7.59218]
+}
+
+[sub_resource type="Animation" id="Animation_sdasx"]
+resource_name = "attackRight"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.261799, 1.5708, 2.87979]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bk48a"]
+_data = {
+"RESET": SubResource("Animation_lh8xy"),
+"attackDown": SubResource("Animation_vr05u"),
+"attackLeft": SubResource("Animation_6mdmo"),
+"attackRight": SubResource("Animation_sdasx"),
+"attackUp": SubResource("Animation_7iced")
+}
+
+[node name="Sword" type="Node2D"]
+texture_filter = 1
+rotation = 1.60919
+script = ExtResource("1_badd0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("2_6i4vf")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-0.5, -9.5)
+shape = SubResource("RectangleShape2D_k8b80")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bk48a")
+}
+
+[node name="SlashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_htxb3")
+volume_db = -35.173
+pitch_scale = 0.53
+attenuation = 2.63902
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

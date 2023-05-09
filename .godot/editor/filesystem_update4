@@ -1,5 +1,15 @@
 res://default_env.tres
-res://scenes/Levels/world.tscn
 res://scenes/Player/player.tscn
+res://Sword.gd
+res://scenes/Weapons/sword.tscn
+res://scenes/Weapons/Sword/sword.tscn
+res://scenes/Weapons/Sword/Sword.gd
+res://scenes/Enemies/slime.gd
+res://scenes/Shared/stats.tscn
+res://scenes/Shared/stats.gd
+res://scenes/Shared/health_stats.tscn
+res://scenes/Shared/health_stats.gd
 res://scenes/Enemies/slime.tscn
+res://scenes/Player/player.gd
+res://scenes/Levels/world.tscn
 res://scenes/Hud/health_bar.tscn

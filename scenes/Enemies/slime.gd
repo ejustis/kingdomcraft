@@ -9,19 +9,18 @@ const LIMIT := 0.5
 		return randf_range(0, 2.2) + damage
 
 @onready var animations := $AnimationPlayer
+@onready var health_stats := $HealthStats
 @onready var health_bar := $HealthBar
 
 var start_pos : Vector2
 var end_pos : Vector2
 
-var max_health := 50.0
-var cur_health := max_health
-
 func _ready():
 	start_pos = global_position
 	end_pos = end_marker.global_position
 	
-	health_bar.change_value_range(0, max_health)
+	health_stats.change_max_health(50, true)
+	health_bar.change_value_range(0, health_stats.max_health)
 	
 func update_velocity():
 	var move_dir = end_pos - global_position
@@ -52,3 +51,12 @@ func _physics_process(delta):
 
 	move_and_slide()
 	update_animation()
+
+func take_damage(value : int):
+	health_stats.take_damage(value)
+
+	health_bar.update_health(health_stats.cur_health)
+
+
+func _on_health_stats_dead():
+	queue_free()

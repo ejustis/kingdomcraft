@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bicp1yfgo8efa"]
+[gd_scene load_steps=13 format=3 uid="uid://bicp1yfgo8efa"]
 
 [ext_resource type="Script" path="res://scenes/Enemies/slime.gd" id="1_77ry4"]
 [ext_resource type="Texture2D" uid="uid://bc7v8y40ga51j" path="res://Assets/NinjaAdventure/Actor/Monsters/Slime.png" id="1_088ul"]
 [ext_resource type="PackedScene" uid="uid://dnuxoxls6g06a" path="res://scenes/Hud/health_bar.tscn" id="3_b2owl"]
+[ext_resource type="PackedScene" uid="uid://bq8xeqdlsv1d0" path="res://scenes/Shared/health_stats.tscn" id="4_ynvaq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ugq4"]
 radius = 4.0
@@ -271,3 +272,7 @@ offset_top = -18.0
 offset_right = -13.0
 offset_bottom = -18.0
 scale = Vector2(0.34, 0.34)
+
+[node name="HealthStats" parent="." instance=ExtResource("4_ynvaq")]
+
+[connection signal="dead" from="HealthStats" to="." method="_on_health_stats_dead"]

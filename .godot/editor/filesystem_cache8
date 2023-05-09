@@ -1,6 +1,6 @@
 2a60927148abd1d33b818b535e306557
-::res://::1683600480
-default_env.tres::Environment::3547946272114545488::1683581943::0::1::::<><>::
+::res://::1683604751
+default_env.tres::Environment::3547946272114545488::1683604761::0::1::::<><>::
 icon.png::CompressedTexture2D::2163500250149466054::1658035039::1683433496::1::::<><>::
 ::res://Assets/::1683482101
 ::res://Assets/NinjaAdventure/::1683482120
@@ -1049,9 +1049,9 @@ Menu9.wav::AudioStreamWAV::5086721670222495087::1683482116::1683482123::1::::<><
 Menu10.wav::AudioStreamWAV::5071409153278290997::1683482116::1683482123::1::::<><>::
 Menu11.wav::AudioStreamWAV::8146749875050145212::1683482116::1683482123::1::::<><>::
 Menu12.wav::AudioStreamWAV::5379179364782315773::1683482116::1683482123::1::::<><>::
-::res://scenes/::1683556519
-::res://scenes/Enemies/::1683581943
-slime.gd::GDScript::-1::1683559516::0::1::::<>CharacterBody2D<>::
+::res://scenes/::1683604539
+::res://scenes/Enemies/::1683604545
+slime.gd::GDScript::-1::1683604545::0::1::::<>CharacterBody2D<>::
 slime.tscn::PackedScene::2953018642415552546::1683581943::0::1::::<><>::res://scenes/Enemies/slime.gd<>uid://bc7v8y40ga51j<>uid://dnuxoxls6g06a
 ::res://scenes/Hud/::1683581943
 health_bar.gd::GDScript::-1::1683557689::0::1::::<>Control<>::
@@ -1059,6 +1059,13 @@ health_bar.tscn::PackedScene::8114427291292648610::1683581943::0::1::::<><>::uid
 ::res://scenes/Levels/::1683581943
 FollowCam.gd::GDScript::-1::1683509370::0::1::::<>Camera2D<>::
 world.tscn::PackedScene::769213142956174010::1683581943::0::1::::<><>::uid://smhl3bdeks2f<>uid://c1qmf7aywhvhd<>uid://syp710o15l8h<>uid://bxyjuqvwxj1ea<>uid://bicp1yfgo8efa<>res://scenes/Levels/FollowCam.gd<>uid://dnuxoxls6g06a
-::res://scenes/Player/::1683581943
+::res://scenes/Player/::1683602837
 player.gd::GDScript::-1::1683557383::0::1::::<>CharacterBody2D<>::
-player.tscn::PackedScene::6631520560790076381::1683581943::0::1::::<><>::uid://dijy8fqhw0wtm<>res://scenes/Player/player.gd
+player.tscn::PackedScene::6631520560790076381::1683602837::0::1::::<><>::uid://dijy8fqhw0wtm<>res://scenes/Player/player.gd
+::res://scenes/Shared/::1683604751
+health_stats.tscn::PackedScene::171274682172725903::1683604761::0::1::::<><>::res://scenes/Shared/stats.gd
+stats.gd::GDScript::-1::1683604696::0::1::::<>Node<>::
+::res://scenes/Weapons/::1683603561
+::res://scenes/Weapons/Sword/::1683604456
+Sword.gd::GDScript::-1::1683604456::0::1::::<>Node2D<>::
+sword.tscn::PackedScene::577413663627254505::1683604456::0::1::::<><>::res://scenes/Weapons/Sword/Sword.gd<>uid://dl60knb5107bb
