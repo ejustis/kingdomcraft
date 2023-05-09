@@ -1,0 +1,5 @@
+res://default_env.tres
+res://scenes/Levels/world.tscn
+res://scenes/Player/player.tscn
+res://scenes/Enemies/slime.tscn
+res://scenes/Hud/health_bar.tscn

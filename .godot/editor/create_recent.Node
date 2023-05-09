@@ -1,0 +1,11 @@
+CanvasLayer
+TextureProgressBar
+Sprite2D
+AnimationPlayer
+CollisionShape2D
+Area2D
+Marker2D
+AnimatedSprite2D
+CharacterBody2D
+Camera2D
+TileMap
