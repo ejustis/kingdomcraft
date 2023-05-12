@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdc8xh3m0cb1n"]
+
+[ext_resource type="Script" path="res://scenes/Stats/Kills/kill_stats.gd" id="1_gubkd"]
+
+[node name="KillStats" type="Node"]
+script = ExtResource("1_gubkd")

@@ -40,7 +40,7 @@ func _on_animation_player_animation_finished(_anim_name):
 
 func _on_hit_box_area_entered(area):
 	var parent : Node2D = area.get_parent()
-	emit_signal("hit", parent)
+#	emit_signal("hit", parent)
 	
 func adjust_offset(direction : String):
 	position = orig_pos
@@ -48,8 +48,8 @@ func adjust_offset(direction : String):
 	if direction == "Up":
 		position.y -= 6
 	elif direction == "Left":
-		position.x -= 4
+		position.x -= 5
 		position.y -= 3
 	elif direction == "Right":
-		position.x += 4
+		position.x += 5
 		position.y -= 3

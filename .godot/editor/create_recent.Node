@@ -1,6 +1,11 @@
-AudioStreamPlayer2D
-Timer
+VBoxContainer
+Panel
 Node
+Timer
+AudioStreamPlayer
+AudioStreamPlayer2D
+CPUParticles2D
+GPUParticles2D
 AnimationPlayer
 CollisionShape2D
 Area2D

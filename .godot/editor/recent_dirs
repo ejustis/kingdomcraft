@@ -1,6 +1,7 @@
-res://scenes/Shared
-res://scenes/Weapons
 res://scenes/Hud
+res://Constants
+res://scenes/Stats/Kills
+res://scenes/Weapons
 res://scenes/Enemies
 res://Assets/NinjaAdventure/Actor/Monsters
 res://scenes/Levels

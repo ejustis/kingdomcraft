@@ -56,22 +56,6 @@ tracks/0/keys = {
 "values": [3.40339, 4.71239, 6.02139]
 }
 
-[sub_resource type="Animation" id="Animation_7iced"]
-resource_name = "attackUp"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [4.97419, 6.28319, 7.59218]
-}
-
 [sub_resource type="Animation" id="Animation_sdasx"]
 resource_name = "attackRight"
 length = 0.2
@@ -88,6 +72,22 @@ tracks/0/keys = {
 "values": [0.261799, 1.5708, 2.87979]
 }
 
+[sub_resource type="Animation" id="Animation_7iced"]
+resource_name = "attackUp"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [4.97419, 6.28319, 7.59218]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bk48a"]
 _data = {
 "RESET": SubResource("Animation_lh8xy"),
@@ -97,7 +97,7 @@ _data = {
 "attackUp": SubResource("Animation_7iced")
 }
 
-[node name="Sword" type="Node2D"]
+[node name="Sword" type="Node2D" groups=["Weapon"]]
 texture_filter = 1
 rotation = 1.60919
 script = ExtResource("1_badd0")
@@ -108,7 +108,7 @@ texture = ExtResource("2_6i4vf")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 7
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-0.5, -9.5)

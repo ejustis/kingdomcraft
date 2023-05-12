@@ -1,9 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://bicp1yfgo8efa"]
+[gd_scene load_steps=14 format=3 uid="uid://j0gors8tkjbm"]
 
 [ext_resource type="Script" path="res://scenes/Enemies/slime.gd" id="1_77ry4"]
 [ext_resource type="Texture2D" uid="uid://bc7v8y40ga51j" path="res://Assets/NinjaAdventure/Actor/Monsters/Slime.png" id="1_088ul"]
 [ext_resource type="PackedScene" uid="uid://dnuxoxls6g06a" path="res://scenes/Hud/health_bar.tscn" id="3_b2owl"]
-[ext_resource type="PackedScene" uid="uid://bq8xeqdlsv1d0" path="res://scenes/Shared/health_stats.tscn" id="4_ynvaq"]
+[ext_resource type="PackedScene" path="res://scenes/Stats/Health/health_stats.tscn" id="4_ynvaq"]
+
+[sub_resource type="Gradient" id="Gradient_id1ch"]
+offsets = PackedFloat32Array(0.125541, 0.408369)
+colors = PackedColorArray(0.462745, 0.462745, 0.462745, 1, 1, 1, 1, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ugq4"]
 radius = 4.0
@@ -238,6 +242,30 @@ collision_mask = 6
 motion_mode = 1
 script = ExtResource("1_77ry4")
 
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+position = Vector2(0, -4)
+emitting = false
+amount = 40
+lifetime = 0.5
+one_shot = true
+speed_scale = 0.5
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 6.99
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 41.4
+initial_velocity_max = 73.84
+angular_velocity_min = 45.0
+angular_velocity_max = 129.54
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color = Color(0.317647, 0.776471, 0.882353, 1)
+color_ramp = SubResource("Gradient_id1ch")
+hue_variation_min = -0.26
+hue_variation_max = 0.46
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, -4)
@@ -257,7 +285,7 @@ vframes = 4
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -4)
@@ -275,4 +303,5 @@ scale = Vector2(0.34, 0.34)
 
 [node name="HealthStats" parent="." instance=ExtResource("4_ynvaq")]
 
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="dead" from="HealthStats" to="." method="_on_health_stats_dead"]

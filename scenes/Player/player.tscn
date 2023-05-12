@@ -1,7 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1qmf7aywhvhd"]
+[gd_scene load_steps=14 format=3 uid="uid://bv7cai22001ha"]
 
 [ext_resource type="Texture2D" uid="uid://dijy8fqhw0wtm" path="res://Assets/NinjaAdventure/Actor/Characters/BlueSamurai/player_sprites.png" id="1_kybbq"]
 [ext_resource type="Script" path="res://scenes/Player/player.gd" id="1_s60wp"]
+[ext_resource type="AudioStream" uid="uid://dbk5khqobq1fj" path="res://Assets/NinjaAdventure/Sounds/Game/Hit.wav" id="3_nbump"]
+[ext_resource type="PackedScene" path="res://scenes/Stats/Health/health_stats.tscn" id="4_4q48a"]
+[ext_resource type="PackedScene" uid="uid://bdc8xh3m0cb1n" path="res://scenes/Stats/Kills/kill_stats.tscn" id="5_hvjpr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6vyry"]
 radius = 2.0
@@ -103,11 +106,10 @@ _data = {
 "walkUp": SubResource("Animation_aaue0")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i46y2"]
-radius = 6.0
-height = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xal67"]
+size = Vector2(12, 6)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -135,12 +137,27 @@ libraries = {
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -7)
-shape = SubResource("CapsuleShape2D_i46y2")
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_xal67")
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
+[node name="HitSound" type="AudioStreamPlayer" parent="." groups=["Player"]]
+stream = ExtResource("3_nbump")
+volume_db = -12.0
+pitch_scale = 2.0
+
+[node name="HealthStats" parent="." instance=ExtResource("4_4q48a")]
+max_health = 100
+
+[node name="DamageCooldown" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="KillStats" parent="." instance=ExtResource("5_hvjpr")]
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]

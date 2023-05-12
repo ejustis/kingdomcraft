@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://k7u3fi5rh0nu"]
+[gd_scene load_steps=14 format=3 uid="uid://k7u3fi5rh0nu"]
 
 [ext_resource type="Texture2D" uid="uid://smhl3bdeks2f" path="res://Assets/NinjaAdventure/Backgrounds/Tilesets/TilesetFloor.png" id="1_0g62f"]
-[ext_resource type="PackedScene" uid="uid://c1qmf7aywhvhd" path="res://scenes/Player/player.tscn" id="1_cyimt"]
+[ext_resource type="PackedScene" uid="uid://bv7cai22001ha" path="res://scenes/Player/player.tscn" id="1_cyimt"]
 [ext_resource type="Texture2D" uid="uid://syp710o15l8h" path="res://Assets/NinjaAdventure/Backgrounds/Tilesets/TilesetNature.png" id="2_b717h"]
 [ext_resource type="Texture2D" uid="uid://bxyjuqvwxj1ea" path="res://Assets/NinjaAdventure/Backgrounds/Animated/Plant/SpriteSheet16x16.png" id="3_5rsp2"]
-[ext_resource type="PackedScene" uid="uid://bicp1yfgo8efa" path="res://scenes/Enemies/slime.tscn" id="4_3vg7v"]
+[ext_resource type="PackedScene" uid="uid://j0gors8tkjbm" path="res://scenes/Enemies/slime.tscn" id="4_3vg7v"]
 [ext_resource type="Script" path="res://scenes/Levels/FollowCam.gd" id="5_apd7w"]
 [ext_resource type="PackedScene" uid="uid://ihx6h80qqdo8" path="res://scenes/Weapons/Sword/sword.tscn" id="6_bixjv"]
 [ext_resource type="PackedScene" uid="uid://dnuxoxls6g06a" path="res://scenes/Hud/health_bar.tscn" id="7_7t1vs"]
+[ext_resource type="PackedScene" uid="uid://bt6swa53qiri0" path="res://scenes/Hud/kills_display.tscn" id="9_34krx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_13b5w"]
 texture = ExtResource("1_0g62f")
@@ -1915,3 +1916,6 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="KillsDisplay" parent="CanvasLayer" node_paths=PackedStringArray("player_obj") instance=ExtResource("9_34krx")]
+player_obj = NodePath("../../TileMap/Player")
