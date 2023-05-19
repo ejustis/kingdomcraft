@@ -4,53 +4,75 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yca05"]
 bg_color = Color(0, 0.309804, 0.388235, 0.941176)
-corner_radius_top_left = 50
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 40
 corner_radius_top_right = 10
-corner_radius_bottom_right = 50
+corner_radius_bottom_right = 40
 corner_radius_bottom_left = 10
-shadow_color = Color(0.207843, 0.207843, 0.207843, 0.6)
-shadow_size = 5
+shadow_color = Color(0.207843, 0.207843, 0.207843, 0.388235)
+shadow_size = 1
 shadow_offset = Vector2(1, 1)
 
-[node name="KillsDisplay" type="Control"]
-texture_filter = 6
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="KillsDisplay" type="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -75.0
+offset_right = 50.0
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yca05")
 script = ExtResource("1_kkjdt")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -114.5
-offset_top = -110.5
-offset_right = 114.5
-offset_bottom = 110.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_yca05")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 26.0
-offset_top = 16.0
-offset_right = -21.0
-offset_bottom = -19.0
+offset_left = -30.5
+offset_top = -58.0
+offset_right = 30.5
+offset_bottom = 58.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Slimes" type="Label" parent="Panel/VBoxContainer"]
+[node name="Slimes" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
-text = "Slimes : 0"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+text = "Slimes    0"
+horizontal_alignment = 3
+
+[node name="Beasts" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Beasts    0"
+horizontal_alignment = 3
+
+[node name="Undead" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Undead      0"
+horizontal_alignment = 3
+
+[node name="Ents" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Ents   0"
+horizontal_alignment = 3
+
+[node name="Cyclops" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Cyclops   0"
+horizontal_alignment = 3

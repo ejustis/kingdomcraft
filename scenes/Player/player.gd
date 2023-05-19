@@ -1,15 +1,24 @@
 extends CharacterBody2D
 
-@export var player_id : int = 1
-@export var health_bar : Control
+@export var player_id := 1 :
+	set(id):
+		player_id = id
+		# Give authority over the player input to the appropriate peer.
+		$InputSync.set_multiplayer_authority(id)
+		
+
+@export var character_sheet : CompressedTexture2D
+		
 @export var current_weapon : Node2D:
 	set(weapon):
 		if current_weapon:
 			current_weapon.hit.disconnect(_on_weapon_hit)
+			remove_child(current_weapon)
 			
 		current_weapon = weapon
 		
 		if current_weapon:
+			add_child(current_weapon)
 			current_weapon.hit.connect(_on_weapon_hit)
 		
 		print_debug("Current weapon: " + str(current_weapon))
@@ -19,8 +28,12 @@ extends CharacterBody2D
 @onready var damage_cooldown := $DamageCooldown
 @onready var hit_sound := $HitSound
 @onready var health_stats := $HealthStats
+@onready var sprite := $Sprite2D
+@onready var input := $InputSync
 
 const SPEED = 50.0
+
+var health_bar : Control
 
 var can_attack := true
 var is_attacking := false
@@ -28,21 +41,32 @@ var direction := "Down"
 var invincible := false
 
 func _ready():
-	health_stats.change_max_health(100, true)
-	health_bar.change_value_range(0, health_stats.max_health)
+	sprite.set_texture(character_sheet)
 	
-func _physics_process(delta):
+	if player_id == multiplayer.get_unique_id():
+		GlobalUtils.add_player_dependencies(get_node("."))
+		
+		health_bar = GlobalUtils.player_health_bar
+		health_bar.hide()
+		
+		health_stats.change_max_health(100, true)
+		health_bar.change_value_range(0, health_stats.max_health)
+		
+func _process(_delta):
+	if input.is_multiplayer_authority():
+		health_bar.update_health(health_stats.cur_health)
+	
+func _physics_process(_delta):
 	handle_input()
 	move_and_slide()
 	updateAnimation()
 
 func handle_input():
-	var moveDirection := Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = moveDirection * SPEED
+	velocity = input.direction * SPEED
 	
 	calculate_direction_name()
 	
-	if Input.is_action_pressed("attack") && current_weapon:
+	if input.attack && current_weapon:
 		is_attacking = true
 	else:
 		is_attacking = false
@@ -57,7 +81,7 @@ func updateAnimation():
 	if can_attack and is_attacking :
 		can_attack = false
 		attack_cooldown.start()
-		current_weapon.attack(direction)
+		current_weapon.attack.rpc(direction)
 
 func calculate_direction_name() -> void:
 	if velocity != Vector2.ZERO:
@@ -66,6 +90,7 @@ func calculate_direction_name() -> void:
 		elif velocity.x > 0 : direction = "Right"
 		elif  velocity.y <  0 : direction = "Up"
 
+@rpc("any_peer", "call_local")
 func take_damage(damage : int):
 	if not invincible:
 		var tween = create_tween()
@@ -75,12 +100,19 @@ func take_damage(damage : int):
 		damage_cooldown.start()
 		invincible = true
 		health_stats.take_damage(damage)
-		health_bar.update_health(health_stats.cur_health)
 
+@rpc("any_peer", "call_local")
+func enable():
+	health_stats.reset_health()
+	show()
+	if health_bar:
+		health_bar.show()
+	
 func _on_hit_box_area_entered(area):
-	var parent = area.get_parent()
-	if parent.is_in_group("Enemy"):
-		take_damage(parent.damage)
+	if multiplayer.is_server():
+		var parent = area.get_parent()
+		if parent.is_in_group("Enemy"):
+			take_damage.rpc(parent.damage)
 		
 func _on_weapon_hit(parent):
 	hit_sound.play()
@@ -104,3 +136,5 @@ func _on_damage_cooldown_timeout():
 
 func get_kill_stats():
 	return get_node("KillStats").kill_counts
+
+

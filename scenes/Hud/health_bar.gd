@@ -10,9 +10,9 @@ func _ready():
 	progress_bar.max_value = max_value
 	progress_bar.value = max_value
 
-func change_value_range(min : int, max : int):
-	min_value = min
-	max_value = max
+func change_value_range(min_val : int, max_val : int):
+	min_value = min_val
+	max_value = max_val
 
 func update_health(value : float):
 	if value < progress_bar.min_value:

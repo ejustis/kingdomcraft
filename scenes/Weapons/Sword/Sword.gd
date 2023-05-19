@@ -4,7 +4,7 @@ signal hit(collision_parent)
 signal finished
 
 @onready var animations := $AnimationPlayer
-@onready var hit_box : Area2D = $HitBox
+@onready var collision : CollisionShape2D = $HitBox/CollisionShape2D
 @onready var audio : AudioStreamPlayer2D = $SlashSound
 
 var min_damage := 9
@@ -19,28 +19,26 @@ func _ready():
 func get_damage() -> int:
 	return randi_range(min_damage, max_damage)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+@rpc("any_peer", "call_local")
 func attack(direction: String, speed_scale := 1.0):
 	adjust_offset(direction)
 	enable_weapon()
 	$SlashSound.play()
 	animations.play("attack" + direction, -1, speed_scale, false)
-	
+
 func enable_weapon():
-	hit_box.monitoring = true
+	collision.disabled = false
 	show()
-	
+
+@rpc("any_peer", "call_local")	
 func disable_weapon():
-	hit_box.monitoring = false
+	collision.disabled = true
 	hide()
 
 func _on_animation_player_animation_finished(_anim_name):
-	disable_weapon()
-	emit_signal("finished")
-
-func _on_hit_box_area_entered(area):
-	var parent : Node2D = area.get_parent()
-#	emit_signal("hit", parent)
+	if multiplayer.is_server():
+		disable_weapon.rpc()
+		emit_signal("finished")
 	
 func adjust_offset(direction : String):
 	position = orig_pos

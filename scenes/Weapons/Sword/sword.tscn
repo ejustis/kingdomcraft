@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ihx6h80qqdo8"]
+[gd_scene load_steps=11 format=3 uid="uid://bpi07dop41a5s"]
 
 [ext_resource type="Script" path="res://scenes/Weapons/Sword/Sword.gd" id="1_badd0"]
-[ext_resource type="Texture2D" uid="uid://dl60knb5107bb" path="res://Assets/NinjaAdventure/Items/Weapons/Katana/Sprite.png" id="2_6i4vf"]
-[ext_resource type="AudioStream" uid="uid://bced2xk05187k" path="res://Assets/NinjaAdventure/Sounds/Game/Sword2.wav" id="3_htxb3"]
+[ext_resource type="Texture2D" uid="uid://dl60knb5107bb" path="res://Assets/Items/Weapons/Katana.png" id="2_xc2bx"]
+[ext_resource type="AudioStream" uid="uid://bced2xk05187k" path="res://Assets/SoundFx/Sword2.wav" id="3_228bn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k8b80"]
 size = Vector2(5, 9)
@@ -104,7 +104,7 @@ script = ExtResource("1_badd0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -7)
-texture = ExtResource("2_6i4vf")
+texture = ExtResource("2_xc2bx")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 8
@@ -120,10 +120,9 @@ libraries = {
 }
 
 [node name="SlashSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_htxb3")
+stream = ExtResource("3_228bn")
 volume_db = -35.173
 pitch_scale = 0.53
 attenuation = 2.63902
 
-[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

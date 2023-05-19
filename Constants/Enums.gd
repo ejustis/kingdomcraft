@@ -1,5 +1,9 @@
 extends Node
 
 enum ENEMY_TYPE {
-	SLIME
+	SLIME,
+	BEAST,
+	UNDEAD,
+	ENT,
+	CYCLOPS
 }
