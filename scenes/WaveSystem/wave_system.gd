@@ -11,6 +11,7 @@ var enemies_alive := 0
 
 var next_enemies : Array[Node2D]
 var calculating := false
+var spawning := false
 
 func _ready() -> void:
 	if spawn_points.is_empty():
@@ -22,6 +23,10 @@ func _ready() -> void:
 	print("Starting waves...")
 	calculate_next_enemies()
 	wave_timer.start()
+	
+func _process(delta):
+	if wave_timer.is_stopped() and not spawning:
+		wave_timer.start()
 		
 func calculate_next_enemies():
 	calculating = true
@@ -73,24 +78,27 @@ func add_enemies_to_next_wave(possible_enemies : Array[PackedScene], wave_limit 
 		next_enemies.append(new_enemy)
 
 func spawn_enemies() -> void:
-	#Wait an extra seon until calculation is done
-	while calculating:
-		await get_tree().create_timer(1.0).timeout
+	spawning = true
 	
 	for enemy in next_enemies:
 		var spawn_point : Node2D = spawn_points[randi_range(0, len(spawn_points)-1)]
-		add_child(enemy)
+		enemy.name = "enemy_" + str(GlobalUtils.get_next_enemy_id())
+	
 		enemy.hide()
 		var spawn_loc := spawn_point.global_position
-		spawn_loc.x = randf_range(spawn_loc.x - 50, spawn_loc.x + 50)
-		spawn_loc.y = randf_range(spawn_loc.y - 50, spawn_loc.y + 50)
+		spawn_loc.x = randf_range(spawn_loc.x - 10, spawn_loc.x + 10)
+		spawn_loc.y = randf_range(spawn_loc.y, spawn_loc.y + 10)
 		enemy.global_position = spawn_loc
+		add_child(enemy)
 		enemy.show()
+		# Wait half a second before spawning the next monster
+		await get_tree().create_timer(0.7).timeout
 	
 	next_enemies.clear()
+	spawning = false
 
 func _on_next_wave_timeout():
+	wave_timer.stop()
 	spawn_enemies()
 	current_wave += 1
 	calculate_next_enemies()
-	wave_timer.start()

@@ -1,7 +1,8 @@
 res://default_env.tres
 res://scenes/Levels/Forest/Forest.tscn
-res://scenes/main.tscn
-res://scenes/Enemies/Slime/slime.tscn
 res://scenes/WaveSystem/wave_system.tscn
 res://scenes/WaveSystem/wave_system.gd
-res://scenes/Hud/kills_display.gd
+res://scenes/main.tscn
+res://scenes/Enemies/Slime/slime.tscn
+res://scenes/Enemies/Slime/slime.gd
+res://Autoloads/global_utils.gd

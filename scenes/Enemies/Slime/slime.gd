@@ -4,7 +4,7 @@ signal killed_by(character_node: Node2D)
 
 const type := Enums.ENEMY_TYPE.SLIME
 const SPEED := 20.0
-const LIMIT := 0.5
+const LIMIT := 16
 
 @export var end_marker : Marker2D
 @export var damage := 9.5 :
@@ -16,16 +16,11 @@ const LIMIT := 0.5
 @onready var health_bar := $HealthBar
 @onready var death_particles := $DeathParticles
 
-var start_pos : Vector2
-var end_pos : Vector2
 var has_died := false
 var last_hit_node : Node2D
+var target : Node2D
 
 func _ready():
-	start_pos = global_position
-	if end_marker:
-		end_pos = end_marker.global_position
-	
 	health_stats.change_max_health(50, true)
 	health_bar.change_value_range(0, health_stats.max_health)
 	
@@ -33,24 +28,22 @@ func _process(_delta):
 	if has_died and not death_particles.emitting:
 		queue_free()
 	
+	if not has_died and target == null:
+		calculate_new_target()
+	
 func _physics_process(_delta):
 	if not has_died:
-		if end_pos:
+		if target:
 			update_velocity()
 		move_and_slide()
 		update_animation()
 	
 func update_velocity():
-	var move_dir = end_pos - global_position
-	if move_dir.length() <= LIMIT:
-		change_direction()
-		
-	velocity = move_dir.normalized() * SPEED
-	
-func change_direction():
-	var temp_end = end_pos
-	end_pos = start_pos
-	start_pos = temp_end
+	var move_dir = target.global_position - global_position
+	if move_dir.length() >= LIMIT:
+		velocity = move_dir.normalized() * SPEED
+	else:
+		velocity = Vector2(0,0)
 	
 func update_animation():
 	if velocity.length() == 0:
@@ -76,6 +69,20 @@ func take_damage(value : int):
 	health_stats.take_damage(value)
 	health_bar.update_health(health_stats.cur_health)
 
+func calculate_new_target() -> void:
+	var buildings := GlobalUtils.get_undestroyed_buildings()
+	var temp_target = null
+	
+	for building in buildings:
+		if not temp_target:
+			temp_target = building
+			continue
+		
+		if temp_target.get_health() > building.get_health():
+			temp_target = building
+			
+	target = temp_target
+
 func _on_health_stats_dead():
 	death_particles.emitting = true
 	$HitBox.set_deferred("monitoring", false)
@@ -96,5 +103,8 @@ func _on_hit_box_area_entered(area):
 		var character := area_parent.get_parent()
 		if character.is_in_group("Player") or character.is_in_group("NPC"):
 			last_hit_node = character
+			
+			#Set the target to whoever attacked it
+			target = last_hit_node
 			if multiplayer.is_server():
 				take_damage.rpc(character.get_damage())
