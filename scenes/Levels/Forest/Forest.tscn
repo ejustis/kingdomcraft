@@ -1878,13 +1878,13 @@ end_marker = NodePath("Marker2D")
 [node name="Marker2D" type="Marker2D" parent="TileMap/Slime2"]
 position = Vector2(104, -46)
 
-[node name="WaveSystem" parent="TileMap" instance=ExtResource("6_asi3l")]
+[node name="WaveSystem" parent="TileMap" node_paths=PackedStringArray("spawn_points") instance=ExtResource("6_asi3l")]
 wave_interval = 5.0
-spawn_points = Array[Node2D]([null])
+spawn_points = [NodePath("Spawn")]
 wave_data = ExtResource("7_0sqba")
 
 [node name="Spawn" type="Node2D" parent="TileMap/WaveSystem"]
-position = Vector2(506, 140)
+position = Vector2(754, 90)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false

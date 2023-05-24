@@ -80,7 +80,12 @@ func spawn_enemies() -> void:
 	for enemy in next_enemies:
 		var spawn_point : Node2D = spawn_points[randi_range(0, len(spawn_points)-1)]
 		add_child(enemy)
-		enemy.global_position = spawn_point.global_position
+		enemy.hide()
+		var spawn_loc := spawn_point.global_position
+		spawn_loc.x = randf_range(spawn_loc.x - 50, spawn_loc.x + 50)
+		spawn_loc.y = randf_range(spawn_loc.y - 50, spawn_loc.y + 50)
+		enemy.global_position = spawn_loc
+		enemy.show()
 	
 	next_enemies.clear()
 
