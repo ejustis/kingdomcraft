@@ -39,7 +39,7 @@ func load_level() -> void:
 	hide_menus.rpc()
 	waiting_for_players = false
 	print("Loading the selected level")
-	GlobalUtils.change_level.call_deferred(load("res://scenes/Levels/world.tscn"))
+	GlobalUtils.change_level.call_deferred(load("res://scenes/Levels/Forest/Forest.tscn"))
 	
 @rpc("any_peer", "call_local")
 func hide_menus():

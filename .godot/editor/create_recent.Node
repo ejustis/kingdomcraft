@@ -1,6 +1,8 @@
-Node
-MultiplayerSynchronizer
 Node2D
+Marker2D
+Node
+Timer
+MultiplayerSynchronizer
 Camera2D
 MultiplayerSpawner
 Label
@@ -10,7 +12,6 @@ CanvasLayer
 TextEdit
 VBoxContainer
 Button
-Timer
 AudioStreamPlayer
 AudioStreamPlayer2D
 CPUParticles2D
@@ -21,6 +22,5 @@ Area2D
 AnimatedSprite2D
 Sprite2D
 TextureProgressBar
-Marker2D
 CharacterBody2D
 TileMap

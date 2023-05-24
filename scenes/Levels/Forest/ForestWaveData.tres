@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WaveData" load_steps=3 format=3 uid="uid://dixj6kckuefxi"]
+
+[ext_resource type="Resource" uid="uid://cskvstfvqs2oo" path="res://scenes/Enemies/Slime/Slime.tres" id="1_5c80g"]
+[ext_resource type="Script" path="res://scenes/WaveSystem/Waves/wave_data.gd" id="1_iyv6r"]
+
+[resource]
+script = ExtResource("1_iyv6r")
+enemies = Array[Resource("res://scenes/WaveSystem/Waves/enemies.gd")]([ExtResource("1_5c80g")])
+bosses = Array[Resource("res://scenes/WaveSystem/Waves/enemies.gd")]([])
+difficulty_modifier = 1.0
+min_enemies = 10

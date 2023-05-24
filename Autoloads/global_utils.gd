@@ -69,3 +69,6 @@ func change_level(scene: PackedScene):
 	# Add new level.
 	level.add_child(scene.instantiate())
 	set_player_positions()
+
+func return_to_lobby() -> void:
+	pass

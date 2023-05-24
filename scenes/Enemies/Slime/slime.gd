@@ -23,7 +23,8 @@ var last_hit_node : Node2D
 
 func _ready():
 	start_pos = global_position
-	end_pos = end_marker.global_position
+	if end_marker:
+		end_pos = end_marker.global_position
 	
 	health_stats.change_max_health(50, true)
 	health_bar.change_value_range(0, health_stats.max_health)
@@ -34,7 +35,8 @@ func _process(_delta):
 	
 func _physics_process(_delta):
 	if not has_died:
-		update_velocity()
+		if end_pos:
+			update_velocity()
 		move_and_slide()
 		update_animation()
 	
@@ -61,6 +63,9 @@ func update_animation():
 		elif  velocity.y <  0: direction = "Up"
 		
 		animations.play("move" + direction)
+
+func adjust_stats(current_wave : int, difficulty_modifier : float) -> void:
+	pass
 
 @rpc("any_peer", "call_local")
 func take_damage(value : int):
