@@ -4,17 +4,17 @@ signal killed_by(character_node: Node2D)
 
 const type := Enums.ENEMY_TYPE.SLIME
 const SPEED := 20.0
-const LIMIT := 16
+const LIMIT := 12
 
 @export var end_marker : Marker2D
-@export var damage := 9.5 :
-	get:
-		return randf_range(0, 2.2) + damage
+@export var damage := 9.5
 
 @onready var animations := $AnimationPlayer
 @onready var health_stats := $HealthStats
 @onready var health_bar := $HealthBar
 @onready var death_particles := $DeathParticles
+@onready var attack_box : CollisionShape2D = $AttackArea/AttackBox
+@onready var attack_timer : Timer = $AttackTimer
 
 var has_died := false
 var last_hit_node : Node2D
@@ -28,7 +28,7 @@ func _process(_delta):
 	if has_died and not death_particles.emitting:
 		queue_free()
 	
-	if not has_died and target == null:
+	if not has_died and (target == null or target.is_destroyed()):
 		calculate_new_target()
 	
 func _physics_process(_delta):
@@ -36,29 +36,36 @@ func _physics_process(_delta):
 		if target:
 			update_velocity()
 		move_and_slide()
-		update_animation()
 	
-func update_velocity():
+func update_velocity() -> void:
 	var move_dir = target.global_position - global_position
 	if move_dir.length() >= LIMIT:
 		velocity = move_dir.normalized() * SPEED
 	else:
 		velocity = Vector2(0,0)
+		
+	update_animation(move_dir)
 	
-func update_animation():
-	if velocity.length() == 0:
-		if animations.is_playing():
-			animations.stop()
-	else:
+func update_animation(move_dir: Vector2) -> void:
+#	if velocity.length() == 0:
+#		if animations.is_playing():
+#			animations.stop()
+#	else:
+		move_dir = move_dir.normalized()
 		var direction := "Down"
-		if velocity.x < 0: direction = "Left"
-		elif velocity.x > 0: direction = "Right"
-		elif  velocity.y <  0: direction = "Up"
+		if move_dir.x < 0: direction = "Left"
+		elif move_dir.x > 0: direction = "Right"
+		elif  move_dir.y <  0: direction = "Up"
 		
 		animations.play("move" + direction)
 
 func adjust_stats(current_wave : int, difficulty_modifier : float) -> void:
 	pass
+
+func get_damage() -> float:
+	attack_box.set_deferred("disabled", true)
+	attack_timer.start()
+	return randf_range(0, 2.2) + damage
 
 @rpc("any_peer", "call_local")
 func take_damage(value : int):
@@ -108,3 +115,7 @@ func _on_hit_box_area_entered(area):
 			target = last_hit_node
 			if multiplayer.is_server():
 				take_damage.rpc(character.get_damage())
+
+
+func _on_attack_timer_timeout():
+	attack_box.set_deferred("disabled", false)

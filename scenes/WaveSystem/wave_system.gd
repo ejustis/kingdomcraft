@@ -85,11 +85,13 @@ func spawn_enemies() -> void:
 		enemy.name = "enemy_" + str(GlobalUtils.get_next_enemy_id())
 	
 		enemy.hide()
+		add_child(enemy)
+		
 		var spawn_loc := spawn_point.global_position
 		spawn_loc.x = randf_range(spawn_loc.x - 10, spawn_loc.x + 10)
 		spawn_loc.y = randf_range(spawn_loc.y, spawn_loc.y + 10)
 		enemy.global_position = spawn_loc
-		add_child(enemy)
+		
 		enemy.show()
 		# Wait half a second before spawning the next monster
 		await get_tree().create_timer(0.7).timeout

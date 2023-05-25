@@ -112,7 +112,7 @@ func _on_hit_box_area_entered(area):
 	if multiplayer.is_server():
 		var parent = area.get_parent()
 		if parent.is_in_group("Enemy"):
-			take_damage.rpc(parent.damage)
+			take_damage.rpc(parent.get_damage())
 		
 func _on_weapon_hit(parent):
 	hit_sound.play()
@@ -136,5 +136,8 @@ func _on_damage_cooldown_timeout():
 
 func get_kill_stats():
 	return get_node("KillStats").kill_counts
+	
+func is_destroyed() -> bool:
+	return health_stats.cur_health <= 0
 
 

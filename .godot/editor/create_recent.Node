@@ -1,5 +1,10 @@
 Timer
+Area2D
+CollisionShape2D
 Node2D
+Sprite2D
+StaticBody2D
+WorldEnvironment
 Marker2D
 Node
 MultiplayerSynchronizer
@@ -17,10 +22,7 @@ AudioStreamPlayer2D
 CPUParticles2D
 GPUParticles2D
 AnimationPlayer
-CollisionShape2D
-Area2D
 AnimatedSprite2D
-Sprite2D
 TextureProgressBar
 CharacterBody2D
 TileMap

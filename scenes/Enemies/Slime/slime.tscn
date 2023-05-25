@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cd8csxijj58xm"]
+[gd_scene load_steps=16 format=3 uid="uid://cd8csxijj58xm"]
 
 [ext_resource type="Script" path="res://scenes/Enemies/Slime/slime.gd" id="1_saaia"]
 [ext_resource type="Texture2D" uid="uid://bc7v8y40ga51j" path="res://Assets/Enemies/Slime.png" id="2_tojs7"]
@@ -244,6 +244,9 @@ properties/2/path = NodePath("AnimationPlayer:current_animation")
 properties/2/spawn = true
 properties/2/sync = true
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sc3mn"]
+size = Vector2(16, 11)
+
 [node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
 y_sort_enabled = true
@@ -295,7 +298,6 @@ hframes = 4
 vframes = 4
 
 [node name="HitBox" type="Area2D" parent="."]
-collision_layer = 2
 collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -317,5 +319,18 @@ scale = Vector2(0.34, 0.34)
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_pp4nm")
 
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 16
+
+[node name="AttackBox" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_sc3mn")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="dead" from="HealthStats" to="." method="_on_health_stats_dead"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

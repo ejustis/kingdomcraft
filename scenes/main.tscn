@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://c88pigwkq2nsn" path="res://scenes/Menus/network_menu.tscn" id="1_me2t8"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node2D"]
+y_sort_enabled = true
 
-[node name="Level" type="Node" parent="."]
+[node name="Level" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../Level")
@@ -14,7 +16,8 @@ spawn_limit = 1
 
 [node name="NetworkMenu" parent="UI" instance=ExtResource("1_me2t8")]
 
-[node name="PersistentNodes" type="Node" parent="."]
+[node name="PersistentNodes" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Players" type="Node2D" parent="PersistentNodes"]
 y_sort_enabled = true
