@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dnuxoxls6g06a"]
 
-[ext_resource type="Texture2D" uid="uid://btltvkh660oau" path="res://Assets/NinjaAdventure/HUD/LifeBarMiniUnder.png" id="1_kdkyn"]
 [ext_resource type="Script" path="res://scenes/Hud/health_bar.gd" id="1_pfwsh"]
-[ext_resource type="Texture2D" uid="uid://dctyrtln4wbyy" path="res://Assets/NinjaAdventure/HUD/LifeBarMiniProgress.png" id="2_ckbui"]
+[ext_resource type="Texture2D" uid="uid://ddtgtycyudukp" path="res://Assets/UI/Player/LifeBarMiniUnder.png" id="2_hbnt6"]
+[ext_resource type="Texture2D" uid="uid://qkmn02hqhxv8" path="res://Assets/UI/Player/LifeBarMiniProgress.png" id="3_rijp0"]
 
 [node name="HealthBar" type="Control"]
 texture_filter = 1
@@ -22,5 +22,5 @@ offset_right = 69.0
 offset_bottom = 20.0
 value = 50.0
 nine_patch_stretch = true
-texture_under = ExtResource("1_kdkyn")
-texture_progress = ExtResource("2_ckbui")
+texture_under = ExtResource("2_hbnt6")
+texture_progress = ExtResource("3_rijp0")

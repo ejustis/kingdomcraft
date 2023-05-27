@@ -6,6 +6,8 @@ const LEVEL_NODE = "/root/Main/Level"
 const UI_NODE = "/root/Main/UI"
 const CAMERA = "/root/Main/PersistentNodes/Camera2D"
 
+var enemy_counter := 1
+
 var player_health_bar : Control
 var player_camera : Camera2D
 
@@ -69,3 +71,23 @@ func change_level(scene: PackedScene):
 	# Add new level.
 	level.add_child(scene.instantiate())
 	set_player_positions()
+	
+func get_players_alive() -> Array[Node]:
+	return get_node(PLAYERS_NODE).get_children()
+	
+func get_undestroyed_buildings() -> Array[Node]:
+	var buildings : Array[Node] = []
+	
+	for building in get_tree().get_nodes_in_group("Building"):
+		if not building.is_destroyed():
+			buildings.append(building)
+			
+	return buildings
+	
+func get_next_enemy_id() -> int:
+	var tmp := enemy_counter
+	enemy_counter += 1
+	return tmp
+
+func return_to_lobby() -> void:
+	pass
