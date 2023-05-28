@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c30dnny2wa24o"]
+[gd_scene load_steps=18 format=3 uid="uid://c30dnny2wa24o"]
 
 [ext_resource type="Script" path="res://scenes/Player/player.gd" id="1_s60wp"]
 [ext_resource type="Texture2D" uid="uid://dijy8fqhw0wtm" path="res://Assets/Characters/blue_samurai.png" id="2_hucgg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/Stats/Health/health_stats.tscn" id="4_4q48a"]
 [ext_resource type="PackedScene" uid="uid://bdc8xh3m0cb1n" path="res://scenes/Stats/Kills/kill_stats.tscn" id="5_hvjpr"]
 [ext_resource type="Script" path="res://scenes/Player/InputSync.gd" id="6_33cep"]
+[ext_resource type="Script" path="res://scenes/Player/SimpleInventory.gd" id="7_m3250"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6vyry"]
 radius = 2.0
@@ -193,6 +194,9 @@ replication_config = SubResource("SceneReplicationConfig_16jo8")
 script = ExtResource("6_33cep")
 
 [node name="Weapon" type="Node" parent="."]
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("7_m3250")
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]

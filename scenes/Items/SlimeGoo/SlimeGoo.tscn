@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://brxcasxbb7x5e"]
+
+[ext_resource type="Script" path="res://scenes/Items/SlimeGoo/SlimeGoo.gd" id="1_y3o81"]
+[ext_resource type="Texture2D" uid="uid://53asegflk56q" path="res://icon.png" id="2_oo70q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_807k2"]
+
+[node name="SlimeGoo" type="Node2D"]
+script = ExtResource("1_y3o81")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("2_oo70q")
+
+[node name="PickupZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
+shape = SubResource("CircleShape2D_807k2")

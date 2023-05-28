@@ -30,6 +30,7 @@ extends CharacterBody2D
 @onready var health_stats := $HealthStats
 @onready var sprite := $Sprite2D
 @onready var input := $InputSync
+@onready var inventory : Node = $Inventory
 
 const SPEED = 50.0
 

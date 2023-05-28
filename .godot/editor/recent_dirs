@@ -1,3 +1,6 @@
+res://Inventory
+res://Autoloads
+res://Inventory/Items
 res://scenes/Buildings
 res://scenes/Levels/Forest
 C:/Users/krena/Documents/godot_projects/kingdomcraft
@@ -7,7 +10,6 @@ res://scenes/Enemies/Slime
 res://Assets/Objects/Animated/Plant
 res://Assets/Tilesets
 res://scenes
-res://Autoloads
 res://scenes/Levels
 res://scenes/Menus
 res://Assets/Characters
