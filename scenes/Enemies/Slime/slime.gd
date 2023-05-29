@@ -3,11 +3,9 @@ extends CharacterBody2D
 signal killed_by(character_node: Node2D)
 
 const type := Enums.ENEMY_TYPE.SLIME
-const SPEED := 20.0
 const LIMIT := 12
 
-@export var end_marker : Marker2D
-@export var damage := 9.5
+@export var enemy_data : EnemyData
 
 @onready var animations := $AnimationPlayer
 @onready var health_stats := $HealthStats
@@ -19,10 +17,13 @@ const LIMIT := 12
 var has_died := false
 var last_hit_node : Node2D
 var target : Node2D
+var move_speed : float
 
 func _ready():
-	health_stats.change_max_health(50, true)
+	health_stats.change_max_health(enemy_data.max_health, true)
 	health_bar.change_value_range(0, health_stats.max_health)
+	attack_timer.wait_time = enemy_data.attack_speed
+	move_speed =enemy_data.move_speed
 	
 func _process(_delta):
 	if has_died and not death_particles.emitting:
@@ -40,24 +41,20 @@ func _physics_process(_delta):
 func update_velocity() -> void:
 	var move_dir = target.global_position - global_position
 	if move_dir.length() >= LIMIT:
-		velocity = move_dir.normalized() * SPEED
+		velocity = move_dir.normalized() * move_speed
 	else:
 		velocity = Vector2(0,0)
 		
 	update_animation(move_dir)
 	
 func update_animation(move_dir: Vector2) -> void:
-#	if velocity.length() == 0:
-#		if animations.is_playing():
-#			animations.stop()
-#	else:
-		move_dir = move_dir.normalized()
-		var direction := "Down"
-		if move_dir.x < 0: direction = "Left"
-		elif move_dir.x > 0: direction = "Right"
-		elif  move_dir.y <  0: direction = "Up"
-		
-		animations.play("move" + direction)
+	move_dir = move_dir.normalized()
+	var direction := "Down"
+	if move_dir.x < 0: direction = "Left"
+	elif move_dir.x > 0: direction = "Right"
+	elif  move_dir.y <  0: direction = "Up"
+	
+	animations.play("move" + direction)
 
 func adjust_stats(current_wave : int, difficulty_modifier : float) -> void:
 	pass
@@ -65,7 +62,7 @@ func adjust_stats(current_wave : int, difficulty_modifier : float) -> void:
 func get_damage() -> float:
 	attack_box.set_deferred("disabled", true)
 	attack_timer.start()
-	return randf_range(0, 2.2) + damage
+	return randf_range(enemy_data.min_damage, enemy_data.max_damage)
 
 @rpc("any_peer", "call_local")
 func take_damage(value : int):

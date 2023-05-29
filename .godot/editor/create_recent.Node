@@ -1,3 +1,5 @@
+Sprite2D
+CharacterBody2D
 Control
 GridContainer
 MarginContainer
@@ -6,7 +8,6 @@ Label
 TextureRect
 CollisionShape2D
 Area2D
-Sprite2D
 Node
 Timer
 Node2D
@@ -29,5 +30,3 @@ GPUParticles2D
 AnimationPlayer
 AnimatedSprite2D
 TextureProgressBar
-CharacterBody2D
-TileMap

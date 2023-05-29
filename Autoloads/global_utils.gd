@@ -8,6 +8,7 @@ const CAMERA : String = "/root/Main/PersistentNodes/Camera2D"
 const INVENTORY_UI : String = "%s/InventoryInterface" % UI_NODE
 
 var enemy_counter := 1
+var drop_counter := 1
 
 var player_health_bar : Control
 var player_camera : Camera2D
@@ -26,6 +27,9 @@ func add_persistent_node(parent : String, node_instance : Node) -> void:
 
 func add_persistent_node_at(parent : String, node_instance : Node, location : Vector2) -> void:
 	add_node_at(PERSISTENT_NODES + parent, node_instance, location)
+	
+func add_to_level_tilemap(node_instance : Node):
+	add_node(LEVEL_NODE + "/TileMap", node_instance)
 
 func remove_from_persisitent_node(parent : String, node_name: String) -> bool:
 	var parent_node := get_node(PERSISTENT_NODES + parent)
@@ -92,6 +96,11 @@ func get_undestroyed_buildings() -> Array[Node]:
 func get_next_enemy_id() -> int:
 	var tmp := enemy_counter
 	enemy_counter += 1
+	return tmp
+
+func get_next_drop_id() -> int:
+	var tmp := drop_counter
+	drop_counter += 1
 	return tmp
 
 func return_to_lobby() -> void:

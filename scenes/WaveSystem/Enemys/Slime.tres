@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="EnemyInWave" load_steps=3 format=3 uid="uid://cskvstfvqs2oo"]
 
 [ext_resource type="PackedScene" uid="uid://cd8csxijj58xm" path="res://scenes/Enemies/Slime/slime.tscn" id="1_4n71n"]
-[ext_resource type="Script" path="res://scenes/WaveSystem/Waves/enemies.gd" id="2_lwmi6"]
+[ext_resource type="Script" path="res://scenes/WaveSystem/Waves/enemy_in_wave.gd" id="2_w6v1i"]
 
 [resource]
-script = ExtResource("2_lwmi6")
+script = ExtResource("2_w6v1i")
 enemy = ExtResource("1_4n71n")
 start_wave = 1
 start_level = 1
