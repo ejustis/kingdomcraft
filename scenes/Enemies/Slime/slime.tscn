@@ -237,15 +237,12 @@ height = 14.0
 properties/0/path = NodePath("HealthStats:cur_health")
 properties/0/spawn = true
 properties/0/sync = true
-properties/0/watch = false
 properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/sync = true
-properties/1/watch = false
 properties/2/path = NodePath("AnimationPlayer:current_animation")
 properties/2/spawn = true
 properties/2/sync = true
-properties/2/watch = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sc3mn"]
 size = Vector2(16, 11)

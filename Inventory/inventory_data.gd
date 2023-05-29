@@ -15,12 +15,12 @@ func pickup_slot_data(slot_data: SlotData) -> bool:
 		
 		if slot_datas[index] and slot_datas[index].can_fully_merge(slot_data):
 			slot_datas[index].fully_merge(slot_data)
-			#inventory_updated.emit(self)
+			inventory_updated.emit(self)
 			return true
 			
 	if empty_slot >= 0:
 		slot_datas[empty_slot] = slot_data
-		#inventory_updated.emit(self)
+		inventory_updated.emit(self)
 		return true
 		
 	return false

@@ -17,7 +17,7 @@ quantity = 10
 
 [sub_resource type="Resource" id="Resource_0hud5"]
 script = ExtResource("3_gipd1")
-slot_datas = [SubResource("Resource_47dj6"), null, null, null, null, null, null, null, null, null]
+slot_datas = Array[ExtResource("5_kje4r")]([SubResource("Resource_47dj6"), null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6vyry"]
 radius = 2.0
@@ -126,37 +126,29 @@ size = Vector2(12, 6)
 properties/0/path = NodePath(".:player_id")
 properties/0/spawn = true
 properties/0/sync = false
-properties/0/watch = false
 properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/sync = true
-properties/1/watch = false
 properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
 properties/2/sync = true
-properties/2/watch = false
 properties/3/path = NodePath("AnimationPlayer:current_animation")
 properties/3/spawn = true
 properties/3/sync = true
-properties/3/watch = false
 properties/4/path = NodePath("HealthStats:cur_health")
 properties/4/spawn = true
 properties/4/sync = true
-properties/4/watch = false
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_16jo8"]
 properties/0/path = NodePath("InputSync:direction")
 properties/0/spawn = false
 properties/0/sync = true
-properties/0/watch = false
 properties/1/path = NodePath("InputSync:attack")
 properties/1/spawn = false
 properties/1/sync = false
-properties/1/watch = true
 properties/2/path = NodePath("InputSync:build")
 properties/2/spawn = false
 properties/2/sync = false
-properties/2/watch = true
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("current_weapon") groups=["Player"]]
 z_index = 1

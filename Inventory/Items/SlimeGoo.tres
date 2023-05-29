@@ -7,5 +7,5 @@
 script = ExtResource("1_vn51a")
 name = "Slime Goo"
 sprite = ExtResource("2_k63je")
-stackable = false
+stackable = true
 type = 0
