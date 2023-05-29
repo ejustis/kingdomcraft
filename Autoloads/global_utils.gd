@@ -1,15 +1,17 @@
 extends Node
 
-const PERSISTENT_NODES = "/root/Main/PersistentNodes/"
-const PLAYERS_NODE = PERSISTENT_NODES + "Players"
-const LEVEL_NODE = "/root/Main/Level"
-const UI_NODE = "/root/Main/UI"
-const CAMERA = "/root/Main/PersistentNodes/Camera2D"
+const PERSISTENT_NODES : String = "/root/Main/PersistentNodes/"
+const PLAYERS_NODE : String = PERSISTENT_NODES + "Players"
+const LEVEL_NODE : String = "/root/Main/Level"
+const UI_NODE : String = "/root/Main/UI"
+const CAMERA : String = "/root/Main/PersistentNodes/Camera2D"
+const INVENTORY_UI : String = "%s/InventoryInterface" % UI_NODE
 
 var enemy_counter := 1
 
 var player_health_bar : Control
 var player_camera : Camera2D
+var player_inventory : Control
 
 func add_node(parent_path : String, node_instance : Node) -> void:
 	get_node(parent_path).add_child(node_instance, true)
@@ -60,6 +62,9 @@ func add_player_dependencies(player : Node) -> void:
 	player_health_bar.name = "health_bar_" + str(player.player_id)
 	add_node(GlobalUtils.UI_NODE, 
 		player_health_bar)
+		
+	player_inventory = get_node(INVENTORY_UI)
+	player_inventory.set_player_inventory_data(player.inventory_data)
 	
 # Call this function deferred and only on the main authority (server).
 func change_level(scene: PackedScene):

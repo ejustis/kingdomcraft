@@ -8,6 +8,7 @@ extends CharacterBody2D
 		
 
 @export var character_sheet : CompressedTexture2D
+@export var inventory_data : InventoryData
 		
 @export var current_weapon : Node2D:
 	set(weapon):
@@ -30,11 +31,11 @@ extends CharacterBody2D
 @onready var health_stats := $HealthStats
 @onready var sprite := $Sprite2D
 @onready var input := $InputSync
-@onready var inventory : Node = $Inventory
 
 const SPEED = 50.0
 
 var health_bar : Control
+var inventory_ui : Control
 
 var can_attack := true
 var is_attacking := false
@@ -53,6 +54,8 @@ func _ready():
 		health_stats.change_max_health(100, true)
 		health_bar.change_value_range(0, health_stats.max_health)
 		
+		inventory_ui = GlobalUtils.player_inventory
+		
 func _process(_delta):
 	if input.is_multiplayer_authority():
 		health_bar.update_health(health_stats.cur_health)
@@ -66,6 +69,9 @@ func handle_input():
 	velocity = input.direction * SPEED
 	
 	calculate_direction_name()
+	
+	if input.build and inventory_data.has_amount_of_item(preload("res://Inventory/Items/SlimeGoo.tres"), 1):
+		print("Build da stuff")
 	
 	if input.attack && current_weapon:
 		is_attacking = true
@@ -108,6 +114,8 @@ func enable():
 	show()
 	if health_bar:
 		health_bar.show()
+	
+	inventory_ui.show()
 	
 func _on_hit_box_area_entered(area):
 	if multiplayer.is_server():

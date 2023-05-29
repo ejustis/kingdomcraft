@@ -1,3 +1,9 @@
+Control
+GridContainer
+MarginContainer
+PanelContainer
+Label
+TextureRect
 CollisionShape2D
 Area2D
 Sprite2D
@@ -10,7 +16,6 @@ Marker2D
 MultiplayerSynchronizer
 Camera2D
 MultiplayerSpawner
-Label
 CheckBox
 Panel
 CanvasLayer

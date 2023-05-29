@@ -7,7 +7,3 @@ enum ENEMY_TYPE {
 	ENT,
 	CYCLOPS
 }
-
-enum ITEM_TYPE {
-	SLIME
-}

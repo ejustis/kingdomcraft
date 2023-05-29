@@ -1,5 +1,5 @@
-InventoryData
 ItemData
+InventoryData
 VisualShader
 WaveData
 EnemyInWave

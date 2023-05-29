@@ -1,12 +1,23 @@
-[gd_scene load_steps=18 format=3 uid="uid://c30dnny2wa24o"]
+[gd_scene load_steps=22 format=3 uid="uid://c30dnny2wa24o"]
 
-[ext_resource type="Script" path="res://scenes/Player/player.gd" id="1_s60wp"]
-[ext_resource type="Texture2D" uid="uid://dijy8fqhw0wtm" path="res://Assets/Characters/blue_samurai.png" id="2_hucgg"]
-[ext_resource type="AudioStream" uid="uid://dbk5khqobq1fj" path="res://Assets/SoundFx/Hit.wav" id="3_nbump"]
-[ext_resource type="PackedScene" path="res://scenes/Stats/Health/health_stats.tscn" id="4_4q48a"]
-[ext_resource type="PackedScene" uid="uid://bdc8xh3m0cb1n" path="res://scenes/Stats/Kills/kill_stats.tscn" id="5_hvjpr"]
-[ext_resource type="Script" path="res://scenes/Player/InputSync.gd" id="6_33cep"]
-[ext_resource type="Script" path="res://scenes/Player/SimpleInventory.gd" id="7_m3250"]
+[ext_resource type="Script" path="res://scenes/Player/player.gd" id="1_2g0wr"]
+[ext_resource type="Texture2D" uid="uid://dijy8fqhw0wtm" path="res://Assets/Characters/blue_samurai.png" id="2_mb7cv"]
+[ext_resource type="Script" path="res://Inventory/inventory_data.gd" id="3_gipd1"]
+[ext_resource type="AudioStream" uid="uid://dbk5khqobq1fj" path="res://Assets/SoundFx/Hit.wav" id="4_msl0b"]
+[ext_resource type="Resource" uid="uid://13yb83nvewv7" path="res://Inventory/Items/SlimeGoo.tres" id="4_tvh75"]
+[ext_resource type="PackedScene" path="res://scenes/Stats/Health/health_stats.tscn" id="5_2sxsx"]
+[ext_resource type="Script" path="res://Inventory/slot_data.gd" id="5_kje4r"]
+[ext_resource type="PackedScene" uid="uid://bdc8xh3m0cb1n" path="res://scenes/Stats/Kills/kill_stats.tscn" id="6_q3rm2"]
+[ext_resource type="Script" path="res://scenes/Player/InputSync.gd" id="7_xx1kf"]
+
+[sub_resource type="Resource" id="Resource_47dj6"]
+script = ExtResource("5_kje4r")
+item_data = ExtResource("4_tvh75")
+quantity = 10
+
+[sub_resource type="Resource" id="Resource_0hud5"]
+script = ExtResource("3_gipd1")
+slot_datas = [SubResource("Resource_47dj6"), null, null, null, null, null, null, null, null, null]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6vyry"]
 radius = 2.0
@@ -115,35 +126,47 @@ size = Vector2(12, 6)
 properties/0/path = NodePath(".:player_id")
 properties/0/spawn = true
 properties/0/sync = false
+properties/0/watch = false
 properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/sync = true
+properties/1/watch = false
 properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
 properties/2/sync = true
+properties/2/watch = false
 properties/3/path = NodePath("AnimationPlayer:current_animation")
 properties/3/spawn = true
 properties/3/sync = true
+properties/3/watch = false
 properties/4/path = NodePath("HealthStats:cur_health")
 properties/4/spawn = true
 properties/4/sync = true
+properties/4/watch = false
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_16jo8"]
 properties/0/path = NodePath("InputSync:direction")
 properties/0/spawn = false
 properties/0/sync = true
+properties/0/watch = false
 properties/1/path = NodePath("InputSync:attack")
 properties/1/spawn = false
-properties/1/sync = true
+properties/1/sync = false
+properties/1/watch = true
+properties/2/path = NodePath("InputSync:build")
+properties/2/spawn = false
+properties/2/sync = false
+properties/2/watch = true
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("current_weapon") groups=["Player"]]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
-collision_mask = 5
+collision_mask = 37
 motion_mode = 1
-script = ExtResource("1_s60wp")
-character_sheet = ExtResource("2_hucgg")
+script = ExtResource("1_2g0wr")
+character_sheet = ExtResource("2_mb7cv")
+inventory_data = SubResource("Resource_0hud5")
 current_weapon = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -173,30 +196,27 @@ wait_time = 0.5
 one_shot = true
 
 [node name="HitSound" type="AudioStreamPlayer" parent="." groups=["Player"]]
-stream = ExtResource("3_nbump")
+stream = ExtResource("4_msl0b")
 volume_db = -12.0
 pitch_scale = 2.0
 
-[node name="HealthStats" parent="." instance=ExtResource("4_4q48a")]
+[node name="HealthStats" parent="." instance=ExtResource("5_2sxsx")]
 max_health = 100
 
 [node name="DamageCooldown" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
-[node name="KillStats" parent="." instance=ExtResource("5_hvjpr")]
+[node name="KillStats" parent="." instance=ExtResource("6_q3rm2")]
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_c4tnr")
 
 [node name="InputSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_16jo8")
-script = ExtResource("6_33cep")
+script = ExtResource("7_xx1kf")
 
 [node name="Weapon" type="Node" parent="."]
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource("7_m3250")
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]

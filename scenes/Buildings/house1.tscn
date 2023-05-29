@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://pwnojnajhqac"]
 
-[ext_resource type="Script" path="res://scenes/Buildings/building.gd" id="1_ef7bx"]
-[ext_resource type="Texture2D" uid="uid://bd8od8g5mcct6" path="res://Assets/Tilesets/TilesetHouse.png" id="1_g57mv"]
-[ext_resource type="Shader" path="res://scenes/Buildings/breaking.gdshader" id="2_wlsr6"]
+[ext_resource type="Script" path="res://scenes/Buildings/building.gd" id="1_se1hm"]
+[ext_resource type="Shader" path="res://scenes/Buildings/breaking.gdshader" id="2_crvak"]
+[ext_resource type="Texture2D" uid="uid://bd8od8g5mcct6" path="res://Assets/Tilesets/TilesetHouse.png" id="3_jil5g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t2kjm"]
 resource_local_to_scene = true
-shader = ExtResource("2_wlsr6")
+shader = ExtResource("2_crvak")
 shader_parameter/health_percent = 1.0
 shader_parameter/min_pixels = 0
 shader_parameter/max_pixels = 400
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qd1dq"]
-atlas = ExtResource("1_g57mv")
+atlas = ExtResource("3_jil5g")
 region = Rect2(0.720703, 0, 62.4813, 47.6327)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0xp1"]
@@ -26,7 +26,7 @@ z_index = 1
 y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_ef7bx")
+script = ExtResource("1_se1hm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_t2kjm")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://brxcasxbb7x5e"]
+
+[ext_resource type="Script" path="res://scenes/Items/PickUp.gd" id="1_d6us5"]
+[ext_resource type="Texture2D" uid="uid://53asegflk56q" path="res://icon.png" id="2_kixbr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_807k2"]
+
+[node name="PickUp" type="Node2D" groups=["Pickup"]]
+script = ExtResource("1_d6us5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("2_kixbr")
+
+[node name="PickupZone" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupZone"]
+shape = SubResource("CircleShape2D_807k2")
+
+[connection signal="body_entered" from="PickupZone" to="." method="_on_pickup_zone_body_entered"]

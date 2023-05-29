@@ -1,6 +1,7 @@
 extends MultiplayerSynchronizer
 
 @export var attack : bool = false
+@export var build : bool = false
 @export var direction : Vector2 = Vector2()
 
 func _ready():
@@ -9,3 +10,4 @@ func _ready():
 func _process(_delta):
 	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	attack = Input.is_action_pressed("attack")
+	build = Input.is_action_just_pressed("Build")

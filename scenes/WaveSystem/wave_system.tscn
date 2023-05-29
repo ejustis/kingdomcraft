@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0yw7myitqana"]
 
-[ext_resource type="Script" path="res://scenes/WaveSystem/wave_system.gd" id="1_1uo77"]
+[ext_resource type="Script" path="res://scenes/WaveSystem/wave_system.gd" id="1_lwlf4"]
 
 [node name="WaveSystem" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_1uo77")
+script = ExtResource("1_lwlf4")
 
 [node name="NextWave" type="Timer" parent="."]
 one_shot = true
