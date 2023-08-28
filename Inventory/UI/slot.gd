@@ -6,7 +6,7 @@ extends PanelContainer
 
 func set_slot_data(slot_data: SlotData) -> void:
 	texture_rect.texture = slot_data.item_data.sprite
-	tooltip_text = "%s\t%s" % [slot_data.item_data.name, slot_data.item_data.type]
+	tooltip_text = "%s" % [slot_data.item_data.name]
 	if slot_data.quantity > 1:
 		quantity.text = "x%s" % slot_data.quantity
 		quantity.show()
@@ -14,3 +14,4 @@ func set_slot_data(slot_data: SlotData) -> void:
 
 func _on_gui_input(event):
 	if event is Input:
+		pass

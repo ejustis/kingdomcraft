@@ -15,19 +15,24 @@ const PICK_UP = preload("res://scenes/Items/PickUp.tscn")
 
 @export var drops : Array[DropData]
 
-func drop_items(position : Vector2) -> void:
+func drop_items(pos : Vector2) -> void:
 	for drop in drops:
 		var is_dropped : bool = drop.drop_chance >= randi_range(0, 100)
 		if is_dropped:
 			print("Dropped item: %s" % drop.item_data.name)
 			var item := PICK_UP.instantiate()
+			item.hide()
+			
+			item.name = "drop_%s" % GlobalUtils.get_next_drop_id()
+			GlobalUtils.add_to_level_tilemap(item)
+			
 			item.slot_data.item_data = drop.item_data
 			item.slot_data.quantity = randi_range(1, drop.max_stack)
 			item.update_sprite()
 			
-			var spawn_loc = Vector2(randi_range(position.x-10, position.x+10), randi_range(position.y-10, position.y+10))
+			var spawn_loc := pos
+			spawn_loc.x = randf_range(spawn_loc.x - 5, spawn_loc.x + 5)
+			spawn_loc.y = randf_range(spawn_loc.y - 5, spawn_loc.y + 5)
 			item.global_position = spawn_loc
 			
-			item.name = "drop_%s" % GlobalUtils.get_next_drop_id()
-			
-			GlobalUtils.add_to_level_tilemap(item)
+			item.show()

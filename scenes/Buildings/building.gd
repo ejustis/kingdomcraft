@@ -9,7 +9,7 @@ extends StaticBody2D
 func is_destroyed() -> bool:
 	return cur_health <= 0
 
-func get_health() -> int:
+func get_health() -> float:
 	return cur_health
 
 func _on_hit_area_area_entered(area):

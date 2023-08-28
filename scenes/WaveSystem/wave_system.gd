@@ -24,7 +24,7 @@ func _ready() -> void:
 	calculate_next_enemies()
 	wave_timer.start()
 	
-func _process(delta):
+func _process(_delta):
 	if wave_timer.is_stopped() and not spawning:
 		wave_timer.start()
 		

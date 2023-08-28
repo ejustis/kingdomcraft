@@ -93,6 +93,7 @@ func _on_health_stats_dead():
 		$HitBox.set_deferred("monitoring", false)
 		$HitBox.collision_layer = 0
 		
+		print("Global pos: %s", global_position)
 		enemy_data.drop_items(global_position)
 		
 		if not has_died and last_hit_node and last_hit_node.is_in_group("Player"):

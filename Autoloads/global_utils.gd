@@ -15,7 +15,7 @@ var player_camera : Camera2D
 var player_inventory : Control
 
 func add_node(parent_path : String, node_instance : Node) -> void:
-	get_node(parent_path).add_child(node_instance, true)
+	get_node(parent_path).call_deferred("add_child", node_instance, true)
 	
 func add_node_at(parent_path : String, node_instance : Node, location : Vector2) -> void:
 	add_node(parent_path, node_instance)
