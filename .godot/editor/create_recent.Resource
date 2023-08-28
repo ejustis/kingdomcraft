@@ -1,3 +1,5 @@
+ItemDataConsumable
+EnemyData
 ItemData
 InventoryData
 VisualShader

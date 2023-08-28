@@ -1926,8 +1926,7 @@ slot_data = SubResource("Resource_auv2b")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="KillsDisplay" parent="CanvasLayer" node_paths=PackedStringArray("player_obj") instance=ExtResource("13_cofc5")]
-player_obj = NodePath("")
+[node name="KillsDisplay" parent="CanvasLayer" instance=ExtResource("13_cofc5")]
 
 [node name="PlayerSpawn" type="Node2D" parent="."]
 position = Vector2(779, 58)

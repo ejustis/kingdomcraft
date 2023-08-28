@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=7 format=3 uid="uid://c36hg4audnuuj"]
+
+[ext_resource type="Script" path="res://scenes/Enemies/enemy_data.gd" id="1_sa3rq"]
+[ext_resource type="Resource" uid="uid://13yb83nvewv7" path="res://Inventory/Items/SlimeGoo.tres" id="1_xu0y6"]
+[ext_resource type="Script" path="res://scenes/Items/drop_data.gd" id="2_r38sx"]
+[ext_resource type="Resource" uid="uid://bo3v58go7lp4o" path="res://Inventory/Items/HealthPotion.tres" id="3_w0mop"]
+
+[sub_resource type="Resource" id="Resource_7g80x"]
+script = ExtResource("2_r38sx")
+item_data = ExtResource("1_xu0y6")
+drop_chance = 100
+max_stack = 1
+
+[sub_resource type="Resource" id="Resource_rprda"]
+script = ExtResource("2_r38sx")
+item_data = ExtResource("3_w0mop")
+drop_chance = 10
+max_stack = 1
+
+[resource]
+script = ExtResource("1_sa3rq")
+name = "Slime"
+description = "The little slime that could"
+max_health = 50
+move_speed = 20.0
+attack_speed = 0.2
+max_damage = 10.0
+min_damage = 5.0
+drops = Array[ExtResource("2_r38sx")]([SubResource("Resource_7g80x"), SubResource("Resource_rprda")])

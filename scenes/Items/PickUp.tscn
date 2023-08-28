@@ -1,14 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://brxcasxbb7x5e"]
+[gd_scene load_steps=6 format=3 uid="uid://brxcasxbb7x5e"]
 
 [ext_resource type="Script" path="res://scenes/Items/PickUp.gd" id="1_d6us5"]
+[ext_resource type="Script" path="res://Inventory/slot_data.gd" id="2_g3pnd"]
 [ext_resource type="Texture2D" uid="uid://53asegflk56q" path="res://icon.png" id="2_kixbr"]
+
+[sub_resource type="Resource" id="Resource_eiecv"]
+resource_local_to_scene = true
+script = ExtResource("2_g3pnd")
+quantity = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_807k2"]
 
 [node name="PickUp" type="Node2D" groups=["Pickup"]]
 script = ExtResource("1_d6us5")
+slot_data = SubResource("Resource_eiecv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 scale = Vector2(0.22, 0.22)
 texture = ExtResource("2_kixbr")
 

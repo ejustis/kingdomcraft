@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cd8csxijj58xm"]
+[gd_scene load_steps=17 format=3 uid="uid://cd8csxijj58xm"]
 
 [ext_resource type="Script" path="res://scenes/Enemies/Slime/slime.gd" id="1_budfk"]
 [ext_resource type="Texture2D" uid="uid://bc7v8y40ga51j" path="res://Assets/Enemies/Slime.png" id="2_ntduj"]
+[ext_resource type="Resource" uid="uid://c36hg4audnuuj" path="res://scenes/Enemies/Slime/slime.tres" id="2_v566h"]
 [ext_resource type="PackedScene" uid="uid://dnuxoxls6g06a" path="res://scenes/Hud/health_bar.tscn" id="3_m3f6u"]
 [ext_resource type="PackedScene" path="res://scenes/Stats/Health/health_stats.tscn" id="4_lcefs"]
 
@@ -237,12 +238,15 @@ height = 14.0
 properties/0/path = NodePath("HealthStats:cur_health")
 properties/0/spawn = true
 properties/0/sync = true
+properties/0/watch = false
 properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/sync = true
+properties/1/watch = false
 properties/2/path = NodePath("AnimationPlayer:current_animation")
 properties/2/spawn = true
 properties/2/sync = true
+properties/2/watch = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sc3mn"]
 size = Vector2(16, 11)
@@ -255,6 +259,7 @@ collision_layer = 2
 collision_mask = 6
 motion_mode = 1
 script = ExtResource("1_budfk")
+enemy_data = ExtResource("2_v566h")
 
 [node name="DeathParticles" type="CPUParticles2D" parent="."]
 position = Vector2(0, -4)

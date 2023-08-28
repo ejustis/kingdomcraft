@@ -10,3 +10,7 @@ func set_slot_data(slot_data: SlotData) -> void:
 	if slot_data.quantity > 1:
 		quantity.text = "x%s" % slot_data.quantity
 		quantity.show()
+
+
+func _on_gui_input(event):
+	if event is Input:

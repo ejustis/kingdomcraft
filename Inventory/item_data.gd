@@ -4,9 +4,7 @@ class_name ItemData
 @export var name : String
 @export var sprite : Texture
 @export var stackable : bool = false
-@export var type : ItemType
+@export var max_stack : int = 1
 
-enum ItemType {
-	MATERIAL,
-	CONSUMABLE
-}
+func use(target) -> void:
+	pass

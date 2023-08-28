@@ -88,18 +88,23 @@ func calculate_new_target() -> void:
 	target = temp_target
 
 func _on_health_stats_dead():
-	death_particles.emitting = true
-	$HitBox.set_deferred("monitoring", false)
-	$HitBox.collision_layer = 0
-	
-	if not has_died and last_hit_node and last_hit_node.is_in_group("Player"):
-		last_hit_node.find_child("KillStats").add_kill(type)
-		last_hit_node = null
+	if multiplayer.is_server():
+		death_particles.emitting = true
+		$HitBox.set_deferred("monitoring", false)
+		$HitBox.collision_layer = 0
 		
-	has_died = true
+		enemy_data.drop_items(global_position)
+		
+		if not has_died and last_hit_node and last_hit_node.is_in_group("Player"):
+			last_hit_node.find_child("KillStats").add_kill(type)
+			last_hit_node = null
+			
+		has_died = true
+		
+		if animations.is_playing():
+			animations.stop()
+		
 	
-	if animations.is_playing():
-		animations.stop()
  
 func _on_hit_box_area_entered(area):
 	var area_parent : Node2D = area.get_parent()

@@ -126,31 +126,39 @@ size = Vector2(12, 6)
 properties/0/path = NodePath(".:player_id")
 properties/0/spawn = true
 properties/0/sync = false
+properties/0/watch = false
 properties/1/path = NodePath(".:position")
 properties/1/spawn = true
 properties/1/sync = true
+properties/1/watch = false
 properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
 properties/2/sync = true
+properties/2/watch = false
 properties/3/path = NodePath("AnimationPlayer:current_animation")
 properties/3/spawn = true
 properties/3/sync = true
+properties/3/watch = false
 properties/4/path = NodePath("HealthStats:cur_health")
 properties/4/spawn = true
 properties/4/sync = true
+properties/4/watch = false
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_16jo8"]
 properties/0/path = NodePath("InputSync:direction")
 properties/0/spawn = false
 properties/0/sync = true
+properties/0/watch = false
 properties/1/path = NodePath("InputSync:attack")
 properties/1/spawn = false
 properties/1/sync = false
+properties/1/watch = false
 properties/2/path = NodePath("InputSync:build")
 properties/2/spawn = false
 properties/2/sync = false
+properties/2/watch = false
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("current_weapon") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 y_sort_enabled = true
 texture_filter = 1
@@ -159,7 +167,6 @@ motion_mode = 1
 script = ExtResource("1_2g0wr")
 character_sheet = ExtResource("2_mb7cv")
 inventory_data = SubResource("Resource_0hud5")
-current_weapon = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 offset = Vector2(0, -8)

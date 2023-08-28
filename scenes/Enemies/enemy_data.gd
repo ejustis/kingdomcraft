@@ -2,7 +2,6 @@ extends Resource
 class_name EnemyData
 
 const PICK_UP = preload("res://scenes/Items/PickUp.tscn")
-const SLOT_DATA = preload("res://Inventory/slot_data.gd")
 
 @export var name : String
 @export var description : String
@@ -18,13 +17,13 @@ const SLOT_DATA = preload("res://Inventory/slot_data.gd")
 
 func drop_items(position : Vector2) -> void:
 	for drop in drops:
-		var is_dropped : bool = drop.drop_chance <= randi_range(0, 100)
+		var is_dropped : bool = drop.drop_chance >= randi_range(0, 100)
 		if is_dropped:
 			print("Dropped item: %s" % drop.item_data.name)
 			var item := PICK_UP.instantiate()
-			item.slot_data = SLOT_DATA.instantiate()
 			item.slot_data.item_data = drop.item_data
 			item.slot_data.quantity = randi_range(1, drop.max_stack)
+			item.update_sprite()
 			
 			var spawn_loc = Vector2(randi_range(position.x-10, position.x+10), randi_range(position.y-10, position.y+10))
 			item.global_position = spawn_loc

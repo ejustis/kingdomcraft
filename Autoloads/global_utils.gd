@@ -29,7 +29,7 @@ func add_persistent_node_at(parent : String, node_instance : Node, location : Ve
 	add_node_at(PERSISTENT_NODES + parent, node_instance, location)
 	
 func add_to_level_tilemap(node_instance : Node):
-	add_node(LEVEL_NODE + "/TileMap", node_instance)
+	add_node(LEVEL_NODE + "/World/TileMap", node_instance)
 
 func remove_from_persisitent_node(parent : String, node_name: String) -> bool:
 	var parent_node := get_node(PERSISTENT_NODES + parent)
