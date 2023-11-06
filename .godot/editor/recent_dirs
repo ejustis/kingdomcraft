@@ -1,3 +1,5 @@
+res://scenes/BuildSystem
+res://scenes/Hud
 res://Inventory/Items
 res://scenes/Enemies/Slime
 res://Inventory/UI
@@ -14,7 +16,6 @@ res://scenes
 res://scenes/Levels
 res://scenes/Menus
 res://Assets/Characters
-res://scenes/Hud
 res://scenes/Stats/Kills
 res://scenes/Weapons
 res://scenes/Enemies

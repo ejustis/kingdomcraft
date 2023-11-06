@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 @export var character_sheet : CompressedTexture2D
 @export var inventory_data : InventoryData
+@export var learned_blueprints : Array[BuildingData]
 		
 @export var current_weapon : Node2D:
 	set(weapon):
@@ -31,6 +32,7 @@ extends CharacterBody2D
 @onready var health_stats := $HealthStats
 @onready var sprite := $Sprite2D
 @onready var input := $InputSync
+@onready var buildMenu := $BuildMenu
 
 const SPEED = 50.0
 
@@ -41,9 +43,11 @@ var can_attack := true
 var is_attacking := false
 var direction := "Down"
 var invincible := false
+var current_blueprint : int = 0
 
 func _ready():
 	sprite.set_texture(character_sheet)
+	buildMenu.populate(learned_blueprints[current_blueprint], false)
 	
 	if player_id == multiplayer.get_unique_id():
 		GlobalUtils.add_player_dependencies(get_node("."))
@@ -70,13 +74,26 @@ func handle_input():
 	
 	calculate_direction_name()
 	
-	if input.build and inventory_data.has_amount_of_item(preload("res://Inventory/Items/SlimeGoo.tres"), 1):
-		print("Build da stuff")
+	if input.build:
+		if have_all_materials(learned_blueprints[current_blueprint]):
+			build.rpc_id(1)
+		else:
+			print("Not enough materials")
+	
 	
 	if input.attack && current_weapon:
 		is_attacking = true
 	else:
 		is_attacking = false
+		
+	if input.scrollBuildMenu != 0:
+		current_blueprint += input.scrollBuildMenu
+		if current_blueprint < 0:
+			current_blueprint = len(learned_blueprints)-1
+		elif current_blueprint >= len(learned_blueprints):
+			current_blueprint = 0
+			
+		buildMenu.populate(learned_blueprints[current_blueprint], true)
 
 func updateAnimation():
 	if velocity.length() == 0:
@@ -148,5 +165,35 @@ func get_kill_stats():
 	
 func is_destroyed() -> bool:
 	return health_stats.cur_health <= 0
+	
+func have_all_materials(blueprint : BuildingData) -> bool:
+	for key in blueprint.required_materials.keys():
+		if not inventory_data.has_amount_of_item(key, blueprint.required_materials[key]):
+			return false
+			
+	return true
 
-
+@rpc("any_peer", "call_local")
+func build():
+	if multiplayer.is_server():
+		print("Building it!")
+		var blueprint : BuildingData = learned_blueprints[current_blueprint]
+		
+		# Remove the building materials from the inventory
+		for key in blueprint.required_materials.keys():
+			inventory_data.remove_quantity(key, blueprint.required_materials[key])
+		
+		# Build the building in front of the player
+		var building_pos : Vector2 = global_position
+		
+	#	if direction == "Up":
+	#		building_pos.y -= 32
+	#	elif direction == "Left":
+	#		building_pos.x -= 32
+	#	elif direction == "Right":
+	#		building_pos.x += 32
+	#	else:
+	#		building_pos.y += 32
+		
+		GlobalUtils.create_new_building(blueprint, building_pos)
+			

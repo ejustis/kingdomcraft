@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://k2gapc8tajpc"]
+
+[ext_resource type="Script" path="res://scenes/BuildSystem/BuildingData.gd" id="1_a3k2w"]
+[ext_resource type="Resource" uid="uid://13yb83nvewv7" path="res://Inventory/Items/SlimeGoo.tres" id="1_dai4y"]
+[ext_resource type="Texture2D" uid="uid://dq51uado6vhh2" path="res://Assets/SlimeBlock.png" id="2_lr6e2"]
+
+[resource]
+script = ExtResource("1_a3k2w")
+initial_spawn_time = 5
+initial_damage = 1
+required_materials = {
+ExtResource("1_dai4y"): 5
+}
+can_shoot = false
+additional_effects = Array[int]([1])
+texture = ExtResource("2_lr6e2")

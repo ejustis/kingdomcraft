@@ -7,8 +7,11 @@ const UI_NODE : String = "/root/Main/UI"
 const CAMERA : String = "/root/Main/PersistentNodes/Camera2D"
 const INVENTORY_UI : String = "%s/InventoryInterface" % UI_NODE
 
+const BUILDING_HOLDER : PackedScene = preload("res://scenes/BuildSystem/BuildingHolder.tscn")
+
 var enemy_counter := 1
 var drop_counter := 1
+var building_counter := 1
 
 var player_health_bar : Control
 var player_camera : Camera2D
@@ -102,6 +105,22 @@ func get_next_drop_id() -> int:
 	var tmp := drop_counter
 	drop_counter += 1
 	return tmp
+	
+func get_next_building_id() -> int:
+	var tmp := building_counter
+	building_counter += 1
+	return tmp
 
 func return_to_lobby() -> void:
 	pass
+
+func create_new_building(blueprint : BuildingData, pos : Vector2) -> void:
+	var new_building := BUILDING_HOLDER.instantiate()
+	new_building.hide()
+	
+	new_building.name = "building_%s" % get_next_building_id()
+	add_to_level_tilemap(new_building)
+	
+	new_building.global_position = pos
+	
+	new_building.show()

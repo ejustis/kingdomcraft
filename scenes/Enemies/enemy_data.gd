@@ -31,8 +31,11 @@ func drop_items(pos : Vector2) -> void:
 			item.update_sprite()
 			
 			var spawn_loc := pos
-			spawn_loc.x = randf_range(spawn_loc.x - 5, spawn_loc.x + 5)
-			spawn_loc.y = randf_range(spawn_loc.y - 5, spawn_loc.y + 5)
+			print("Initial loc: %s" % spawn_loc)
+			
+			spawn_loc.x = randf_range(spawn_loc.x - 20, spawn_loc.x + 20) - 50
+			spawn_loc.y = randf_range(spawn_loc.y - 20, spawn_loc.y + 20) - 27
 			item.global_position = spawn_loc
+			print("Adjusted loc: %s" % spawn_loc)
 			
 			item.show()

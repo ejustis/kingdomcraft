@@ -25,10 +25,21 @@ func pickup_slot_data(slot_data: SlotData) -> bool:
 		
 	return false
 
+func drop_slot_data(slot_data: SlotData) -> void:
+	pass
+	
+func remove_quantity(item_data : ItemData, amount : int) -> void:
+	for index in slot_datas.size():
+		if slot_datas[index] and slot_datas[index].item_data == item_data:
+			if slot_datas[index].remove_amount(amount):
+				slot_datas[index] = null
+	
+	inventory_updated.emit(self)
+
 func has_amount_of_item(item_data : ItemData, amount : int) -> bool:
 	for index in slot_datas.size():
 		if slot_datas[index] and slot_datas[index].item_data == item_data \
-				and slot_datas[index].quantity == amount:
+				and slot_datas[index].quantity >= amount:
 			return true
 			
 	return false

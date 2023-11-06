@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc47oe0jlv6sc"]
+
+[ext_resource type="Script" path="res://scenes/BuildSystem/BuildingHolder.gd" id="1_l3g3d"]
+[ext_resource type="Resource" uid="uid://k2gapc8tajpc" path="res://scenes/BuildSystem/SlowSlime.tres" id="2_72ed5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tdf"]
+size = Vector2(16, 16)
+
+[node name="BuildingHolder" type="Node2D"]
+script = ExtResource("1_l3g3d")
+buildingData = ExtResource("2_72ed5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_k2tdf")
+debug_color = Color(0.701961, 0, 0.25098, 0.419608)
+
+[node name="Timer" type="Timer" parent="."]

@@ -16,3 +16,10 @@ func set_quantity(value : int) -> void:
 	quantity = value
 	if quantity > 1 and not item_data.stackable:
 		quantity = 1
+
+# Removes the given value from the quantity
+# and returns if the slot is marked for removal
+func remove_amount(value : int) -> bool:
+	quantity -= value
+	
+	return quantity <= 0

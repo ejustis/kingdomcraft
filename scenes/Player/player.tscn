@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c30dnny2wa24o"]
+[gd_scene load_steps=24 format=3 uid="uid://c30dnny2wa24o"]
 
 [ext_resource type="Script" path="res://scenes/Player/player.gd" id="1_2g0wr"]
 [ext_resource type="Texture2D" uid="uid://dijy8fqhw0wtm" path="res://Assets/Characters/blue_samurai.png" id="2_mb7cv"]
@@ -7,7 +7,9 @@
 [ext_resource type="Resource" uid="uid://13yb83nvewv7" path="res://Inventory/Items/SlimeGoo.tres" id="4_tvh75"]
 [ext_resource type="PackedScene" path="res://scenes/Stats/Health/health_stats.tscn" id="5_2sxsx"]
 [ext_resource type="Script" path="res://Inventory/slot_data.gd" id="5_kje4r"]
+[ext_resource type="Resource" uid="uid://k2gapc8tajpc" path="res://scenes/BuildSystem/SlowSlime.tres" id="6_5brfg"]
 [ext_resource type="PackedScene" uid="uid://bdc8xh3m0cb1n" path="res://scenes/Stats/Kills/kill_stats.tscn" id="6_q3rm2"]
+[ext_resource type="PackedScene" uid="uid://2xqfojsvxu8v" path="res://scenes/Hud/BuildMenu.tscn" id="7_b1ckn"]
 [ext_resource type="Script" path="res://scenes/Player/InputSync.gd" id="7_xx1kf"]
 
 [sub_resource type="Resource" id="Resource_47dj6"]
@@ -157,6 +159,10 @@ properties/2/path = NodePath("InputSync:build")
 properties/2/spawn = false
 properties/2/sync = false
 properties/2/watch = false
+properties/3/path = NodePath("InputSync:scrollBuildMenu")
+properties/3/spawn = false
+properties/3/sync = false
+properties/3/watch = false
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
@@ -167,6 +173,14 @@ motion_mode = 1
 script = ExtResource("1_2g0wr")
 character_sheet = ExtResource("2_mb7cv")
 inventory_data = SubResource("Resource_0hud5")
+learned_blueprints = Array[Resource("res://scenes/BuildSystem/BuildingData.gd")]([ExtResource("6_5brfg")])
+
+[node name="BuildMenu" parent="." instance=ExtResource("7_b1ckn")]
+offset_left = 20.0
+offset_top = -16.0
+offset_right = 20.0
+offset_bottom = -16.0
+scale = Vector2(1.18082, 0.875048)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 offset = Vector2(0, -8)

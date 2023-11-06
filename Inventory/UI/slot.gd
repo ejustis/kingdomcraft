@@ -11,7 +11,6 @@ func set_slot_data(slot_data: SlotData) -> void:
 		quantity.text = "x%s" % slot_data.quantity
 		quantity.show()
 
-
 func _on_gui_input(event):
 	if event is Input:
 		pass
