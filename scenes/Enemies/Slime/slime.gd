@@ -19,6 +19,7 @@ var has_died := false
 var last_hit_node : Node2D
 var target : Node2D
 var move_speed : float
+var slow_duration : int
 
 func _ready():
 	health_stats.change_max_health(enemy_data.max_health, true)
@@ -44,6 +45,8 @@ func _process(_delta):
 		# Now that the navigation map is no longer empty, set the movement target.
 		set_movement_target(target.global_position)
 	
+	slow_duration -= _delta
+	
 func _physics_process(_delta):
 	if not has_died:
 		if navigation_agent.is_navigation_finished():
@@ -59,8 +62,10 @@ func update_velocity() -> void:
 
 	var new_velocity: Vector2 = next_path_position - current_agent_position
 	new_velocity = new_velocity.normalized() 
-	
-	velocity = new_velocity * move_speed
+	var _speed = move_speed
+	if slow_duration > 0:
+		_speed = move_speed / 2
+	velocity = new_velocity * _speed
 		
 	update_animation(new_velocity)
 	
@@ -140,6 +145,11 @@ func _on_hit_box_area_entered(area):
 			
 			if multiplayer.is_server():
 				take_damage.rpc(character.get_damage())
+	elif area_parent.is_in_group("P_Building"):
+		if multiplayer.is_server():
+				take_damage.rpc(area_parent.get_damage())
+				slow_duration = area_parent.slow_enemy()
+		
 
 
 func _on_attack_timer_timeout():

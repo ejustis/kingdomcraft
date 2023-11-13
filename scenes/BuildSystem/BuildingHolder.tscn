@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tdf"]
 size = Vector2(16, 16)
 
-[node name="BuildingHolder" type="Node2D"]
+[node name="BuildingHolder" type="Node2D" groups=["P_Building"]]
 script = ExtResource("1_l3g3d")
 buildingData = ExtResource("2_72ed5")
 
