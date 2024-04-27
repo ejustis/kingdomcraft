@@ -124,3 +124,15 @@ func create_new_building(blueprint : BuildingData, pos : Vector2) -> void:
 	new_building.global_position = pos
 	
 	new_building.show()
+	
+func client_interpolate(start_pos: Vector2, target_pos: Vector2, delta: float, lerp_speed: float = 25):
+	if target_pos == Vector2.INF:
+		return start_pos
+		
+	if (start_pos - target_pos).length_squared() > 10000:
+		return target_pos
+		
+	return lerp(
+		target_pos,
+		start_pos,
+		pow(0.5, delta * lerp_speed))

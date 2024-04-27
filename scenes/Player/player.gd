@@ -6,6 +6,7 @@ extends CharacterBody2D
 		# Give authority over the player input to the appropriate peer.
 		$InputSync.set_multiplayer_authority(id)
 		
+@export var target_pos : Vector2 = Vector2.INF
 
 @export var character_sheet : CompressedTexture2D
 @export var inventory_data : InventoryData
@@ -60,13 +61,16 @@ func _ready():
 		
 		inventory_ui = GlobalUtils.player_inventory
 		
-func _process(_delta):
+func _process(delta):
 	if input.is_multiplayer_authority():
 		health_bar.update_health(health_stats.cur_health)
+	else:
+		global_position = GlobalUtils.client_interpolate(global_position, target_pos, delta)
 	
 func _physics_process(_delta):
 	handle_input()
 	move_and_slide()
+	target_pos = global_position
 	updateAnimation()
 
 func handle_input():

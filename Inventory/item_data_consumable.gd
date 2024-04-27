@@ -3,5 +3,5 @@ class_name ItemDataConsumable
 
 @export var heal_value: int
 
-func use(target) -> void:
+func use(_target) -> void:
 	pass

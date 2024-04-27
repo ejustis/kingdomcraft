@@ -37,8 +37,8 @@ func calculate_next_enemies():
 	var enemies_in_wave = randi_range(wave_data.min_enemies, max_enemies)
 	
 	#Calculate the number of bosses in the wave
-	var can_have_bosses = floori(current_wave / 5) > 0
-	var min_bosses : int = floori(current_wave / 5)
+	var can_have_bosses = floori(current_wave / 5.0) > 0
+	var min_bosses : int = floori(current_wave / 5.0)
 	var max_bosses : int = min_bosses + floori(current_wave * wave_data.difficulty_modifier/10)
 	var bosses_in_wave : int = randi_range(min_bosses, max_bosses)
 	
