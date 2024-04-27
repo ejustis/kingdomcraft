@@ -4,13 +4,13 @@
 [ext_resource type="Script" path="res://Inventory/UI/InventoryInterface.gd" id="2_6aucu"]
 [ext_resource type="PackedScene" uid="uid://dxn4csx3id7q5" path="res://Inventory/UI/inventory.tscn" id="2_qpe5o"]
 
-[node name="Main" type="Node2D"]
-y_sort_enabled = true
+[node name="Main" type="Node"]
 
 [node name="Level" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Levels/Forest/Forest.tscn")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
@@ -35,11 +35,9 @@ script = ExtResource("2_6aucu")
 [node name="Inventory" parent="UI/InventoryInterface" instance=ExtResource("2_qpe5o")]
 layout_mode = 1
 
-[node name="PersistentNodes" type="Node2D" parent="."]
-y_sort_enabled = true
+[node name="PersistentNodes" type="Node" parent="."]
 
-[node name="Players" type="Node2D" parent="PersistentNodes"]
-y_sort_enabled = true
+[node name="Players" type="Node" parent="PersistentNodes"]
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="PersistentNodes"]
 _spawnable_scenes = PackedStringArray("res://scenes/Player/player.tscn")

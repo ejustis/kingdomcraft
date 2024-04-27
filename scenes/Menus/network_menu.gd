@@ -13,7 +13,10 @@ func _ready() -> void:
 		_on_host_pressed.call_deferred()
 		
 func _process(_delta) -> void:
-	if multiplayer.is_server() and waiting_for_players:
+	if Network.is_null_or_client():
+		return
+	
+	if waiting_for_players:
 		if Network.check_for_all_players_ready():
 			load_level()
 		

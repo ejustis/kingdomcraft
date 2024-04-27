@@ -2,6 +2,7 @@ extends Node
 
 @onready var wave_timer : Timer = $NextWave
 
+@export var spawner : MultiplayerSpawner 
 @export var wave_interval : float = 30.0
 @export var spawn_points : Array[Node2D]
 @export var wave_data : WaveData
@@ -100,7 +101,8 @@ func spawn_enemies() -> void:
 	spawning = false
 
 func _on_next_wave_timeout():
-	wave_timer.stop()
-	spawn_enemies()
-	current_wave += 1
-	calculate_next_enemies()
+	if multiplayer.is_server():
+		wave_timer.stop()
+		spawn_enemies()
+		current_wave += 1
+		calculate_next_enemies()

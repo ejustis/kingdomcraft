@@ -50,7 +50,7 @@ func set_player_positions():
 			var position : Vector2 = spawn_node.global_position
 			position.x = randf_range(position.x - 50, position.x + 50)
 			position.y = randf_range(position.y - 50, position.y + 50)
-			player.global_position = position
+			player.move_to_position.rpc(position)
 
 func enable_players():
 	for player in get_node(PLAYERS_NODE).get_children():

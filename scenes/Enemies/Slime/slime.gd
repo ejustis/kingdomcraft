@@ -6,6 +6,7 @@ const type := Enums.ENEMY_TYPE.SLIME
 const LIMIT := 12
 
 @export var enemy_data : EnemyData
+@export var target_pos := Vector2.INF
 
 @onready var animations := $AnimationPlayer
 @onready var health_stats := $HealthStats
@@ -35,7 +36,10 @@ func _ready():
 	# Make sure to not await during _ready.
 	call_deferred("calculate_new_target")
 	
-func _process(_delta):
+func _process(delta):
+	if Network.is_null_or_client():
+		return
+		
 	if has_died and not death_particles.emitting:
 		queue_free()
 	
@@ -45,9 +49,13 @@ func _process(_delta):
 		# Now that the navigation map is no longer empty, set the movement target.
 		set_movement_target(target.global_position)
 	
-	slow_duration -= _delta
+	GlobalUtils.client_interpolate(global_position, target_pos, delta)
+	slow_duration -= delta
 	
 func _physics_process(_delta):
+	if Network.is_null_or_client():
+		return
+		
 	if not has_died:
 		if navigation_agent.is_navigation_finished():
 			return
@@ -55,6 +63,7 @@ func _physics_process(_delta):
 		if target:
 			update_velocity()
 		move_and_slide()
+		target_pos = global_position
 	
 func update_velocity() -> void:
 	var current_agent_position: Vector2 = global_position
@@ -150,7 +159,6 @@ func _on_hit_box_area_entered(area):
 				take_damage.rpc(area_parent.get_damage())
 				slow_duration = area_parent.slow_enemy()
 		
-
 
 func _on_attack_timer_timeout():
 	attack_box.set_deferred("disabled", false)

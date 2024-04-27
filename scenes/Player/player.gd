@@ -62,6 +62,9 @@ func _ready():
 		inventory_ui = GlobalUtils.player_inventory
 		
 func _process(delta):
+	if multiplayer.multiplayer_peer == null:
+		return
+	
 	if input.is_multiplayer_authority():
 		health_bar.update_health(health_stats.cur_health)
 	else:
@@ -85,7 +88,7 @@ func handle_input():
 			print("Not enough materials")
 	
 	
-	if input.attack && current_weapon:
+	if input.attack and current_weapon:
 		is_attacking = true
 	else:
 		is_attacking = false
@@ -135,8 +138,9 @@ func enable():
 	show()
 	if health_bar:
 		health_bar.show()
-	
-	inventory_ui.show()
+		
+	if input.is_multiplayer_authority():
+		inventory_ui.show()
 	
 func _on_hit_box_area_entered(area):
 	if multiplayer.is_server():
@@ -201,3 +205,7 @@ func build():
 		
 		GlobalUtils.create_new_building(blueprint, building_pos)
 			
+@rpc("any_peer", "call_local", "reliable")
+func move_to_position(new_pos: Vector2):
+	global_position = new_pos
+	target_pos = new_pos

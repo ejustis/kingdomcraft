@@ -107,3 +107,6 @@ func _add_player(id : int) -> void:
 func _del_player(id: int) -> void:
 	var removed : bool = GlobalUtils.remove_from_persisitent_node("Players", str(id))
 	print("Player removed: ", removed)
+	
+func is_null_or_client():
+	return multiplayer.multiplayer_peer == null or not multiplayer.is_server()
