@@ -151,12 +151,9 @@ properties/1/replication_mode = 0
 properties/2/path = NodePath("InputSync:build")
 properties/2/spawn = false
 properties/2/replication_mode = 0
-properties/2/sync = false
-properties/2/watch = false
 properties/3/path = NodePath("InputSync:scrollBuildMenu")
 properties/3/spawn = false
-properties/3/sync = false
-properties/3/watch = false
+properties/3/replication_mode = 0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
